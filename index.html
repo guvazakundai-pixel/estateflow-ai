@@ -13,8 +13,8 @@
   --border:#e2e8f0;--border-2:#cbd5e1;
   --text:#0f172a;--text-2:#334155;--muted:#64748b;--subtle:#94a3b8;
   --primary:#1E3A8A;--primary-hover:#172a66;--primary-soft:#eff4ff;
-  --teal:#14B8A6;--teal-soft:#ecfdf5;
-  --red:#ef4444;--amber:#f59e0b;--green:#10b981;
+  --teal:#14B8A6;--teal-hover:#0d9488;--teal-soft:#ecfdf5;
+  --red:#ef4444;--amber:#f59e0b;--green:#10b981;--purple:#8b5cf6;
   --font:'Inter',system-ui,-apple-system,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --radius:8px;--radius-lg:12px;--radius-xl:20px;
@@ -36,16 +36,16 @@ img{max-width:100%;display:block}
 ::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:4px}
 .mono{font-family:var(--mono)}
 
-/* NAV */
 #topnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border)}
-.nav-inner{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px}
+.nav-inner{max-width:1320px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;letter-spacing:-.02em;cursor:pointer}
 .logo-mark{width:34px;height:34px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.95rem;box-shadow:0 4px 14px rgba(30,58,138,.3)}
 .logo span b{color:var(--primary);font-weight:800}
 .logo span i{color:var(--teal);font-style:normal;font-weight:800}
 .nav-menu{display:flex;align-items:center;gap:28px;flex:1;justify-content:center}
-.nav-menu a{font-size:.88rem;color:var(--text-2);font-weight:500;transition:color .15s;cursor:pointer}
+.nav-menu a{font-size:.88rem;color:var(--text-2);font-weight:500;transition:color .15s;cursor:pointer;padding:4px 0;border-bottom:2px solid transparent}
 .nav-menu a:hover{color:var(--primary)}
+.nav-menu a.active{color:var(--primary);border-bottom-color:var(--primary)}
 .nav-actions{display:flex;align-items:center;gap:10px}
 .btn{padding:10px 20px;border-radius:100px;font-weight:600;font-size:.88rem;transition:all .18s;display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;cursor:pointer;white-space:nowrap}
 .btn svg{width:14px;height:14px}
@@ -61,8 +61,10 @@ img{max-width:100%;display:block}
 .btn-danger{background:#fef2f2;color:var(--red);border-color:#fecaca}
 .btn-danger:hover{background:var(--red);color:#fff}
 .btn-success{background:#f0fdf4;color:var(--green);border-color:#bbf7d0}
+.btn-wa{background:#25d366;color:#fff}
+.btn-wa:hover{background:#1ebe5d}
+.btn-sm{padding:7px 14px;font-size:.8rem}
 
-/* User menu */
 .user-pill{display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;background:var(--bg-soft);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .15s;position:relative}
 .user-pill:hover{background:var(--bg-dim)}
 .user-pill .avatar{width:28px;height:28px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;overflow:hidden}
@@ -79,75 +81,56 @@ img{max-width:100%;display:block}
 .user-menu-item.danger:hover{background:#fef2f2}
 .user-menu-divider{height:1px;background:var(--border);margin:4px 0}
 
-/* LANDING */
-.landing-hero{position:relative;padding:80px 28px 60px;overflow:hidden}
+.landing-hero{position:relative;padding:72px 28px 48px;overflow:hidden}
 .landing-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--primary-soft),transparent 70%);pointer-events:none;z-index:0}
 .landing-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.landing-tag{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:.78rem;color:var(--text-2);font-weight:500;margin-bottom:24px;box-shadow:var(--shadow)}
+.landing-tag{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:.78rem;color:var(--text-2);font-weight:500;margin-bottom:22px;box-shadow:var(--shadow)}
 .landing-tag svg{width:14px;height:14px;color:var(--teal)}
 .landing-title{font-size:clamp(2.2rem,5.5vw,4rem);font-weight:800;letter-spacing:-.04em;line-height:1.02;margin-bottom:20px}
 .landing-title .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.landing-desc{font-size:1.1rem;color:var(--muted);max-width:620px;margin:0 auto 36px;line-height:1.6}
-.landing-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
-
-.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:60px auto 0;padding:0 28px}
-.role-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius-xl);padding:32px 28px;transition:all .2s;cursor:pointer;text-align:left;position:relative;overflow:hidden}
+.landing-desc{font-size:1.08rem;color:var(--muted);max-width:620px;margin:0 auto 32px;line-height:1.6}
+.landing-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:40px auto 0;padding:0 28px}
+.role-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius-xl);padding:28px 26px;transition:all .2s;cursor:pointer;text-align:left;position:relative;overflow:hidden}
 .role-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:var(--shadow-md)}
 .role-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);opacity:0;transition:opacity .2s}
 .role-card:hover::before{opacity:1}
-.role-card .ic{width:52px;height:52px;border-radius:14px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.role-card .ic svg{width:24px;height:24px}
-.role-card h3{font-size:1.15rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
-.role-card p{color:var(--muted);font-size:.9rem;line-height:1.55;margin-bottom:16px}
-.role-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
-.role-card li{font-size:.85rem;color:var(--text-2);display:flex;align-items:start;gap:8px}
-.role-card li svg{width:14px;height:14px;color:var(--teal);flex-shrink:0;margin-top:3px}
+.role-card .ic{width:48px;height:48px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.role-card .ic svg{width:22px;height:22px}
+.role-card h3{font-size:1.1rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.role-card p{color:var(--muted);font-size:.88rem;line-height:1.55;margin-bottom:14px}
+.role-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.role-card li{font-size:.83rem;color:var(--text-2);display:flex;align-items:start;gap:8px}
+.role-card li svg{width:13px;height:13px;color:var(--teal);flex-shrink:0;margin-top:3px}
 
-/* Features */
-.features{max-width:1100px;margin:80px auto 40px;padding:0 28px}
-.section-lead{text-align:center;margin-bottom:40px}
-.section-lead .kicker{font-family:var(--mono);font-size:.76rem;color:var(--teal);text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px}
-.section-lead h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
-.section-lead p{color:var(--muted);max-width:520px;margin:0 auto;font-size:.98rem}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.feat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:26px;transition:all .2s}
-.feat-card:hover{border-color:var(--primary);box-shadow:var(--shadow-md)}
-.feat-card .ic{width:40px;height:40px;background:var(--primary-soft);color:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-.feat-card .ic svg{width:18px;height:18px}
-.feat-card h4{font-size:1rem;font-weight:700;margin-bottom:6px}
-.feat-card p{font-size:.86rem;color:var(--muted);line-height:1.55}
-
-/* Footer */
-#footer{background:#0f172a;color:#fff;padding:48px 28px 24px;margin-top:80px}
-.foot-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:32px}
+#footer{background:#0f172a;color:#fff;padding:40px 28px 20px;margin-top:60px}
+.foot-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:28px}
 .foot-brand .logo{color:#fff;margin-bottom:12px}
 .foot-brand .logo span b{color:#fff}
-.foot-brand p{color:rgba(255,255,255,.55);font-size:.88rem;line-height:1.65;max-width:320px}
+.foot-brand p{color:rgba(255,255,255,.55);font-size:.86rem;line-height:1.65;max-width:320px}
 .foot-col h4{font-family:var(--mono);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px;color:rgba(255,255,255,.5)}
 .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.foot-col li{color:rgba(255,255,255,.72);font-size:.88rem;cursor:pointer;transition:color .15s}
+.foot-col li{color:rgba(255,255,255,.72);font-size:.86rem;cursor:pointer;transition:color .15s}
 .foot-col li:hover{color:var(--teal)}
-.foot-bottom{max-width:1280px;margin:0 auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.8rem;color:rgba(255,255,255,.45);font-family:var(--mono)}
+.foot-bottom{max-width:1280px;margin:0 auto;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.78rem;color:rgba(255,255,255,.45);font-family:var(--mono)}
 
-/* Modals */
 .modal{position:fixed;inset:0;z-index:200;background:rgba(15,23,42,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 .modal.open{display:flex;animation:fadeIn .2s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal-box{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:480px;padding:32px;position:relative;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.2,.8,.2,1)}
+.modal-box{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:480px;padding:30px;position:relative;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.2,.8,.2,1);max-height:92vh;overflow-y:auto}
 .modal-box.wide{max-width:720px}
+.modal-box.extra-wide{max-width:1100px;padding:0;overflow:hidden}
 @keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:var(--bg-soft);color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s}
-.modal-close:hover{background:#0f172a;color:#fff}
+.modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;z-index:20;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.modal-close:hover{background:#0f172a;color:#fff;border-color:#0f172a}
 .modal-close svg{width:14px;height:14px}
 .modal h3{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
-.modal .lede{color:var(--muted);margin-bottom:20px;font-size:.92rem}
+.modal .lede{color:var(--muted);margin-bottom:18px;font-size:.9rem}
 
-/* Google button */
 .google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;background:#fff;border:1px solid var(--border-2);color:var(--text);border-radius:var(--radius-lg);font-weight:600;font-size:.94rem;cursor:pointer;transition:all .15s}
 .google-btn:hover{border-color:var(--text-2);background:var(--bg-soft)}
 .google-btn svg{width:18px;height:18px}
 
-/* Fields */
 .field{margin-bottom:14px}
 .field label{display:block;font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:6px}
 .field input,.field select,.field textarea{width:100%;background:#fff;border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--radius-lg);font-size:.92rem;transition:all .15s;outline:none;font-family:inherit}
@@ -155,38 +138,39 @@ img{max-width:100%;display:block}
 .field textarea{resize:vertical;min-height:90px}
 .field-hint{font-size:.74rem;color:var(--muted);margin-top:4px}
 .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-grid.three{grid-template-columns:1fr 1fr 1fr}
+.section-divider{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border);font-weight:700}
 
-/* Role pick inside modal */
-.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-.role-pick-item{padding:20px 18px;background:#fff;border:2px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all .15s;text-align:left}
+.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.role-pick-item{padding:18px 16px;background:#fff;border:2px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all .15s;text-align:left}
 .role-pick-item:hover{border-color:var(--border-2)}
 .role-pick-item.selected{border-color:var(--primary);background:var(--primary-soft)}
-.role-pick-item .ic{width:36px;height:36px;border-radius:10px;background:var(--bg-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.role-pick-item .ic svg{width:16px;height:16px}
-.role-pick-item h4{font-size:.95rem;font-weight:700;margin-bottom:2px}
-.role-pick-item p{font-size:.78rem;color:var(--muted);line-height:1.5}
+.role-pick-item .ic{width:32px;height:32px;border-radius:9px;background:var(--bg-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.role-pick-item .ic svg{width:14px;height:14px}
+.role-pick-item h4{font-size:.92rem;font-weight:700;margin-bottom:2px}
+.role-pick-item p{font-size:.76rem;color:var(--muted);line-height:1.5}
 
-/* Toast */
 #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:#0f172a;color:#fff;padding:12px 20px;border-radius:100px;font-size:.86rem;font-weight:500;z-index:9999;opacity:0;transition:all .22s;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.success{background:var(--teal)}
 #toast.error{background:var(--red)}
 #toast svg{width:14px;height:14px}
 
-/* Loading */
 .loader{display:flex;align-items:center;justify-content:center;min-height:60vh;flex-direction:column;gap:16px;color:var(--muted)}
 .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+.spinner.small{width:18px;height:18px;border-width:2px}
+.spinner.white{border-color:rgba(255,255,255,.3);border-top-color:#fff}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Dashboard layouts */
-.dash-wrap{max-width:1280px;margin:0 auto;padding:32px 28px;min-height:calc(100vh - 64px)}
-.dash-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px}
-.dash-head h1{font-size:1.6rem;font-weight:800;letter-spacing:-.02em}
+.dash-wrap{max-width:1320px;margin:0 auto;padding:28px 28px 60px;min-height:calc(100vh - 64px)}
+.dash-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:16px}
+.dash-head h1{font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
 .dash-head p{color:var(--muted);font-size:.92rem;margin-top:4px}
-.dash-actions{display:flex;gap:8px}
+.dash-actions{display:flex;gap:8px;flex-wrap:wrap}
 
 .stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:28px}
-.stat-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:20px 22px}
+.stat-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:20px 22px;transition:all .15s}
+.stat-box:hover{border-color:var(--border-2);box-shadow:var(--shadow)}
 .stat-box .n{font-size:1.8rem;font-weight:800;letter-spacing:-.02em}
 .stat-box .l{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;font-weight:600;font-family:var(--mono)}
 
@@ -195,36 +179,206 @@ img{max-width:100%;display:block}
 .empty-state h3{color:var(--text);font-weight:700;font-size:1.1rem;margin-bottom:6px}
 .empty-state p{max-width:360px;margin:0 auto 18px;font-size:.9rem;line-height:1.55}
 
-/* Admin tag */
 .pending-banner{background:#fef3c7;border:1px solid #fde68a;color:#92400e;padding:12px 18px;border-radius:var(--radius-lg);font-size:.88rem;display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .pending-banner svg{width:18px;height:18px;flex-shrink:0}
 .pending-banner b{font-weight:700}
 
-/* Responsive */
-@media(max-width:820px){
+/* FILTER BAR */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:22px;padding:14px 16px;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-xl)}
+.search-box{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:100px;padding:8px 14px;min-width:240px;flex:1;transition:all .15s}
+.search-box:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+.search-box svg{width:14px;height:14px;color:var(--muted)}
+.search-box input{background:none;border:none;outline:none;flex:1;font-size:.88rem}
+.filter-select{background:#fff;border:1px solid var(--border);border-radius:100px;color:var(--text);padding:9px 14px;font-size:.84rem;cursor:pointer;outline:none;font-family:var(--font)}
+.filter-chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid var(--border-2);color:var(--text);padding:7px 14px;border-radius:100px;font-size:.82rem;font-weight:500;transition:all .15s;white-space:nowrap;cursor:pointer}
+.chip:hover{border-color:var(--text)}
+.chip.active{background:#0f172a;border-color:#0f172a;color:#fff}
+
+/* LISTING GRID */
+.listings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.listing-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column}
+.listing-card:hover{border-color:var(--border-2);transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.lc-img{position:relative;aspect-ratio:4/3;background:var(--bg-soft);overflow:hidden}
+.lc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.listing-card:hover .lc-img img{transform:scale(1.04)}
+.lc-badges{position:absolute;top:12px;left:12px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
+.lc-badge{padding:4px 10px;border-radius:100px;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);backdrop-filter:blur(8px)}
+.lc-badge.available{background:#10b981;color:#fff}
+.lc-badge.under_offer{background:#f59e0b;color:#fff}
+.lc-badge.sold{background:#6b7280;color:#fff}
+.lc-badge.rented{background:#6b7280;color:#fff}
+.lc-badge.verified{background:rgba(30,58,138,.95);color:#fff}
+.lc-badge.sale{background:#ef4444;color:#fff}
+.lc-badge.rent{background:#8b5cf6;color:#fff}
+.lc-fav{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all .15s;z-index:2}
+.lc-fav:hover{color:var(--red)}
+.lc-fav.on{color:var(--red);border-color:var(--red);background:#fff}
+.lc-fav svg{width:16px;height:16px}
+.lc-fav.on svg{fill:currentColor}
+.lc-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
+.lc-price{display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+.lc-price .now{font-size:1.35rem;font-weight:800;letter-spacing:-.02em}
+.lc-price .per{color:var(--muted);font-size:.82rem;font-family:var(--mono)}
+.lc-title{font-size:1rem;font-weight:700;line-height:1.3;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lc-location{font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.lc-location svg{width:12px;height:12px;flex-shrink:0}
+.lc-specs{display:flex;gap:14px;padding-top:10px;border-top:1px solid var(--border);margin-top:auto;font-size:.82rem;color:var(--text-2);flex-wrap:wrap}
+.lc-spec{display:flex;align-items:center;gap:5px}
+.lc-spec svg{width:14px;height:14px;color:var(--muted)}
+.lc-afford{padding:10px 14px;background:var(--primary-soft);border-top:1px solid rgba(30,58,138,.1);font-size:.76rem;color:var(--primary);font-family:var(--mono);font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.lc-afford .apart{display:flex;align-items:center;gap:5px}
+.lc-afford svg{width:12px;height:12px}
+
+/* LISTING TABLE (consultant) */
+.listings-table{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+.lt-head{display:grid;grid-template-columns:60px 2fr 1fr 1fr 90px 100px 140px;gap:14px;padding:14px 18px;background:var(--bg-soft);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.lt-row{display:grid;grid-template-columns:60px 2fr 1fr 1fr 90px 100px 140px;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border);align-items:center;font-size:.88rem;transition:background .12s}
+.lt-row:hover{background:var(--bg-soft)}
+.lt-row:last-child{border-bottom:0}
+.lt-img{width:52px;height:40px;border-radius:8px;object-fit:cover;background:var(--bg-soft);border:1px solid var(--border)}
+.lt-title{font-weight:600}
+.lt-sub{font-size:.76rem;color:var(--muted);margin-top:1px}
+.lt-price{font-weight:800;letter-spacing:-.01em}
+.lt-status{padding:3px 9px;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase;font-family:var(--mono);letter-spacing:.05em;width:fit-content}
+.lt-status.available{background:#ecfdf5;color:var(--green);border:1px solid #bbf7d0}
+.lt-status.under_offer{background:#fffbeb;color:var(--amber);border:1px solid #fde68a}
+.lt-status.sold,.lt-status.rented{background:var(--bg-soft);color:var(--muted);border:1px solid var(--border)}
+.lt-actions{display:flex;gap:5px;flex-wrap:wrap}
+
+/* LISTING FORM MODAL */
+.lf-body{padding:28px 32px}
+.lf-head{padding:20px 32px;border-bottom:1px solid var(--border);background:var(--bg-soft)}
+.lf-head h3{margin-bottom:2px}
+.lf-head p{color:var(--muted);font-size:.86rem}
+
+/* Amenity picker */
+.amenity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:4px}
+.amenity{display:flex;align-items:center;gap:7px;padding:8px 11px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all .15s;user-select:none}
+.amenity:hover{border-color:var(--border-2)}
+.amenity.on{background:var(--primary-soft);border-color:var(--primary);color:var(--primary);font-weight:600}
+.amenity input{display:none}
+.amenity .cb{width:14px;height:14px;border:1.5px solid var(--border-2);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.amenity.on .cb{background:var(--primary);border-color:var(--primary)}
+.amenity.on .cb::after{content:'';width:5px;height:8px;border:1.5px solid #fff;border-top:0;border-left:0;transform:rotate(45deg) translateY(-1px)}
+.amenity span{font-size:.8rem}
+
+/* Image upload */
+.img-manager{display:flex;flex-direction:column;gap:10px}
+.img-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.img-slot{aspect-ratio:4/3;background:var(--bg-soft);border:2px dashed var(--border-2);border-radius:var(--radius-lg);overflow:hidden;position:relative;transition:all .15s}
+.img-slot.filled{border-style:solid;border-color:var(--border)}
+.img-slot.primary{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-soft)}
+.img-slot img{width:100%;height:100%;object-fit:cover}
+.img-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:.76rem;gap:6px;cursor:pointer}
+.img-empty svg{width:22px;height:22px}
+.img-badge{position:absolute;top:5px;left:5px;background:var(--primary);color:#fff;padding:2px 7px;border-radius:100px;font-size:.6rem;font-weight:700;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.img-actions{position:absolute;top:5px;right:5px;display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.img-slot:hover .img-actions{opacity:1}
+.img-actions button{width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.img-actions button:hover{background:#0f172a;color:#fff;border-color:#0f172a}
+.img-actions button.del:hover{background:var(--red);border-color:var(--red)}
+.img-actions svg{width:10px;height:10px}
+.img-upload-btn{display:flex;gap:8px}
+.img-upload-btn button{flex:1;justify-content:center}
+
+/* LISTING DETAIL MODAL */
+.detail-gallery{position:relative;background:#0f172a;aspect-ratio:16/9}
+.detail-gallery img{width:100%;height:100%;object-fit:cover}
+.detail-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:calc(100% - 24px);left:12px;display:flex;justify-content:space-between;pointer-events:none;z-index:3}
+.gal-arrow{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:all;transition:all .15s;border:0}
+.gal-arrow:hover{background:#fff}
+.gal-arrow svg{width:16px;height:16px}
+.detail-thumbs{display:flex;gap:6px;padding:10px 18px;overflow-x:auto;background:#0f172a;border-bottom:1px solid rgba(255,255,255,.08)}
+.detail-thumb{width:64px;height:48px;border-radius:6px;overflow:hidden;flex-shrink:0;border:2px solid transparent;cursor:pointer;transition:all .15s;opacity:.6}
+.detail-thumb.active{border-color:var(--teal);opacity:1}
+.detail-thumb:hover{opacity:1}
+.detail-thumb img{width:100%;height:100%;object-fit:cover}
+.detail-body{padding:28px 32px}
+.detail-hdr{display:flex;align-items:start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.detail-hdr h2{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+.detail-hdr .locationline{color:var(--muted);font-size:.9rem;display:flex;align-items:center;gap:6px}
+.detail-hdr .locationline svg{width:14px;height:14px}
+.detail-price-line{text-align:right}
+.detail-price-line .now{font-size:1.8rem;font-weight:800;letter-spacing:-.03em;line-height:1}
+.detail-price-line .per{color:var(--muted);font-size:.85rem;font-family:var(--mono)}
+.detail-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.detail-desc{color:var(--text-2);font-size:.95rem;line-height:1.65;margin-bottom:22px;white-space:pre-wrap}
+.detail-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:22px}
+.ds-item{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px}
+.ds-item .l{font-family:var(--mono);font-size:.64rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:2px}
+.ds-item .v{font-weight:700;font-size:.92rem}
+.amenity-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.amenity-list span{background:var(--primary-soft);color:var(--primary);padding:5px 11px;border-radius:100px;font-size:.78rem;font-weight:600}
+
+/* Affordability calc */
+.afford-box{background:linear-gradient(135deg,#1E3A8A,#14B8A6);color:#fff;border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:22px}
+.afford-box h4{font-size:1rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.afford-box h4 svg{width:18px;height:18px}
+.afford-box .sub{font-size:.82rem;opacity:.8;margin-bottom:16px}
+.afford-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:16px}
+.af-item{background:rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:12px 14px;backdrop-filter:blur(4px)}
+.af-item .l{font-family:var(--mono);font-size:.66rem;opacity:.85;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:2px}
+.af-item .v{font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.af-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.af-inputs input,.af-inputs select{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:8px 12px;border-radius:var(--radius-lg);font-size:.88rem;outline:none}
+.af-inputs input::placeholder{color:rgba(255,255,255,.6)}
+.af-inputs input:focus,.af-inputs select:focus{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.6)}
+.af-inputs select option{color:#0f172a}
+.afford-verdict{margin-top:14px;padding:12px 14px;background:rgba(255,255,255,.12);border-radius:var(--radius-lg);font-size:.88rem;font-weight:600}
+.afford-verdict.ok::before{content:'✓ '}
+.afford-verdict.tight::before{content:'⚠ '}
+.afford-verdict.no::before{content:'✕ '}
+
+/* Consultant info box */
+.consultant-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-xl);padding:20px;display:flex;gap:14px;align-items:center;margin-bottom:22px}
+.consultant-box .avatar{width:48px;height:48px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;overflow:hidden;flex-shrink:0}
+.consultant-box .avatar img{width:100%;height:100%;object-fit:cover}
+.consultant-box .info{flex:1}
+.consultant-box .info .nm{font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:6px}
+.consultant-box .info .nm .verified{color:var(--primary)}
+.consultant-box .info .nm .verified svg{width:14px;height:14px}
+.consultant-box .info .ag{font-size:.82rem;color:var(--muted)}
+
+.contact-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.contact-actions .btn{justify-content:center;padding:12px}
+
+.share-row{display:flex;justify-content:flex-end;margin-top:6px}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--bg-soft);border:1px solid var(--border);border-radius:100px;font-size:.78rem;color:var(--text-2);cursor:pointer;transition:all .15s}
+.share-btn:hover{border-color:var(--primary);color:var(--primary)}
+.share-btn svg{width:12px;height:12px}
+
+@media(max-width:900px){
   .nav-menu{display:none}
   .role-cards{grid-template-columns:1fr}
   .role-pick{grid-template-columns:1fr}
   .foot-inner{grid-template-columns:1fr;gap:24px}
-  .field-grid{grid-template-columns:1fr}
+  .field-grid,.field-grid.three{grid-template-columns:1fr}
+  .lt-head{display:none}
+  .lt-row{grid-template-columns:50px 1fr 80px;gap:10px}
+  .lt-row > :nth-child(n+4):nth-child(-n+6){display:none}
+  .detail-hdr{flex-direction:column}
+  .detail-price-line{text-align:left}
+  .contact-actions{grid-template-columns:1fr}
+  .af-inputs{grid-template-columns:1fr}
 }
 @media(max-width:520px){
   .nav-inner{padding:0 16px;height:58px}
-  .landing-hero{padding:48px 20px 36px}
-  .modal-box{padding:24px}
+  .landing-hero{padding:48px 20px 32px}
+  .dash-wrap{padding:20px 16px 40px}
+  .modal-box{padding:22px}
+  .lf-body,.detail-body{padding:22px}
   .user-pill .info{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- Loading screen -->
 <div id="boot" class="loader">
   <div class="spinner"></div>
   <p>Loading EstateFlow...</p>
 </div>
 
-<!-- Shell nav (shown once loaded) -->
 <nav id="topnav" style="display:none">
   <div class="nav-inner">
     <a class="logo" onclick="goHome()">
@@ -236,7 +390,7 @@ img{max-width:100%;display:block}
   </div>
 </nav>
 
-<!-- Public landing -->
+<!-- PUBLIC LANDING -->
 <section id="view-landing" style="display:none">
   <div class="landing-hero">
     <div class="landing-inner">
@@ -254,7 +408,6 @@ img{max-width:100%;display:block}
       </div>
     </div>
   </div>
-
   <div class="role-cards">
     <div class="role-card" onclick="signIn()">
       <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
@@ -262,9 +415,8 @@ img{max-width:100%;display:block}
       <p>Find your next home with AI-powered search and instant affordability checks.</p>
       <ul>
         <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Browse verified listings</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> AI chat: "3-bed under $150k in Borrowdale"</li>
         <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Instant affordability calculator</li>
-        <li><svg fill="none" stroke="currentColor" stroke-with="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Save favorites, share to WhatsApp</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Save favorites, share to WhatsApp</li>
       </ul>
       <button class="btn btn-outline">Continue as Buyer →</button>
     </div>
@@ -273,38 +425,11 @@ img{max-width:100%;display:block}
       <h3>I'm a property consultant</h3>
       <p>Publish listings faster with AI-generated descriptions. Turn browsers into buyers.</p>
       <ul>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> AI writes your listings in seconds</li>
         <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Manage all your properties in one place</li>
         <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> See inquiries and listing analytics</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Verified badge (EACZ)</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> EACZ verified badge</li>
       </ul>
       <button class="btn btn-outline">Continue as Consultant →</button>
-    </div>
-  </div>
-
-  <div class="features">
-    <div class="section-lead">
-      <div class="kicker">Why EstateFlow</div>
-      <h2>Built for Zimbabwe's market.</h2>
-      <p>From Borrowdale to Bulawayo, borehole checks to ZESA backup — we speak your market's language.</p>
-    </div>
-    <div class="feat-grid">
-      <div class="feat-card">
-        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <h4>Zimbabwe-first</h4><p>All suburbs, amenities and pricing tuned for the local market.</p>
-      </div>
-      <div class="feat-card">
-        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h4>Verified consultants</h4><p>EACZ-registered consultants get a verified badge for extra trust.</p>
-      </div>
-      <div class="feat-card">
-        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-        <h4>Instant listings</h4><p>AI writes your listing description in 10 seconds.</p>
-      </div>
-      <div class="feat-card">
-        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-        <h4>Affordability built in</h4><p>Every listing shows monthly cost + deposit needed.</p>
-      </div>
     </div>
   </div>
 
@@ -315,10 +440,10 @@ img{max-width:100%;display:block}
         <p>Zimbabwe's AI-powered property marketplace. Find your next home or list with ease.</p>
       </div>
       <div class="foot-col"><h4>Product</h4><ul>
-        <li>Browse listings</li><li>List a property</li><li>For consultants</li>
+        <li>Browse listings</li><li>For consultants</li>
       </ul></div>
       <div class="foot-col"><h4>Company</h4><ul>
-        <li>About</li><li>Contact</li><li>Privacy</li><li>Terms</li>
+        <li>About</li><li>Contact</li><li>Privacy</li>
       </ul></div>
     </div>
     <div class="foot-bottom">
@@ -328,7 +453,7 @@ img{max-width:100%;display:block}
   </footer>
 </section>
 
-<!-- Buyer view -->
+<!-- BUYER VIEW -->
 <section id="view-buyer" style="display:none">
   <div class="dash-wrap">
     <div class="dash-head">
@@ -336,53 +461,66 @@ img{max-width:100%;display:block}
         <h1>Find your next home.</h1>
         <p>Browse verified listings from trusted property consultants.</p>
       </div>
-      <div class="dash-actions">
-        <button class="btn btn-outline" onclick="toast('Coming soon in Part 2','')">🔍 Search</button>
-      </div>
     </div>
-    <div class="empty-state">
-      <div class="big">🏡</div>
-      <h3>Listings coming soon</h3>
-      <p>We're just getting started. Check back shortly — property consultants are adding their properties now.</p>
+    <div class="filter-bar">
+      <div class="search-box">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="search" placeholder="Search by suburb, title..." oninput="renderListings()">
+      </div>
+      <select class="filter-select" id="fltr-type" onchange="renderListings()">
+        <option value="">All types</option>
+        <option value="house">House</option>
+        <option value="apartment">Apartment</option>
+        <option value="townhouse">Townhouse</option>
+        <option value="land">Land</option>
+        <option value="commercial">Commercial</option>
+      </select>
+      <select class="filter-select" id="fltr-listing" onchange="renderListings()">
+        <option value="">Sale & Rent</option>
+        <option value="sale">For Sale</option>
+        <option value="rent">For Rent</option>
+      </select>
+      <select class="filter-select" id="fltr-beds" onchange="renderListings()">
+        <option value="">Any beds</option>
+        <option value="1">1+ beds</option>
+        <option value="2">2+ beds</option>
+        <option value="3">3+ beds</option>
+        <option value="4">4+ beds</option>
+      </select>
+      <select class="filter-select" id="fltr-sort" onchange="renderListings()">
+        <option value="new">Newest</option>
+        <option value="price-asc">Price ↑</option>
+        <option value="price-desc">Price ↓</option>
+      </select>
+    </div>
+    <div class="listings-grid" id="listings-grid">
+      <div class="loader" style="grid-column:1/-1"><div class="spinner"></div><p>Loading listings...</p></div>
     </div>
   </div>
 </section>
 
-<!-- Consultant view -->
+<!-- CONSULTANT VIEW -->
 <section id="view-consultant" style="display:none">
   <div class="dash-wrap">
-    <div id="consultant-pending" style="display:none"></div>
+    <div id="consultant-pending"></div>
     <div class="dash-head">
       <div>
         <h1>Your Dashboard</h1>
         <p id="consultant-welcome">Manage your listings and track inquiries.</p>
       </div>
       <div class="dash-actions">
-        <button class="btn btn-primary" onclick="toast('Coming in Part 2: AI-powered listing builder','')">
+        <button class="btn btn-primary" onclick="openListingForm()">
           <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           New Listing
         </button>
       </div>
     </div>
-    <div class="stat-row">
-      <div class="stat-box"><div class="n">0</div><div class="l">Active Listings</div></div>
-      <div class="stat-box"><div class="n">0</div><div class="l">Total Views</div></div>
-      <div class="stat-box"><div class="n">0</div><div class="l">New Inquiries</div></div>
-      <div class="stat-box"><div class="n">0</div><div class="l">Favorited By Buyers</div></div>
-    </div>
-    <div class="empty-state">
-      <div class="big">📋</div>
-      <h3>No listings yet</h3>
-      <p>Publish your first property to start reaching buyers. Our AI will help you write the perfect listing description.</p>
-      <button class="btn btn-primary" onclick="toast('Coming in Part 2: AI-powered listing builder','')">
-        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-        Create Your First Listing
-      </button>
-    </div>
+    <div class="stat-row" id="consultant-stats"></div>
+    <div id="consultant-listings"></div>
   </div>
 </section>
 
-<!-- Admin view (locked to guvazab@gmail.com) -->
+<!-- ADMIN VIEW -->
 <section id="view-admin" style="display:none">
   <div class="dash-wrap">
     <div class="dash-head">
@@ -391,15 +529,14 @@ img{max-width:100%;display:block}
         <p>Platform management — users, listings, leads.</p>
       </div>
       <div class="dash-actions">
-        <button class="btn btn-outline" onclick="goTo('buyer')">View as Buyer</button>
-        <button class="btn btn-outline" onclick="goTo('consultant')">View as Consultant</button>
+        <button class="btn btn-outline" onclick="goTo('buyer')">View Listings</button>
       </div>
     </div>
     <div class="stat-row" id="admin-stats"></div>
     <div class="empty-state">
       <div class="big">⚙️</div>
       <h3>User management coming in Part 3</h3>
-      <p>Approve new consultants, suspend accounts, view all listings and leads, platform analytics.</p>
+      <p>Approve new consultants, suspend accounts, view all leads, platform analytics.</p>
     </div>
   </div>
 </section>
@@ -418,13 +555,12 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- Onboarding: Role + phone capture -->
+<!-- Onboarding modal -->
 <div class="modal" id="onboard-modal">
   <div class="modal-box wide">
     <h3 id="onboard-title">Welcome to EstateFlow! 👋</h3>
     <p class="lede">Tell us a bit about you so we can set up your account.</p>
-
-    <div style="margin-bottom:20px">
+    <div style="margin-bottom:18px">
       <label style="display:block;font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px">I am a...</label>
       <div class="role-pick">
         <div class="role-pick-item" data-role="buyer" onclick="pickRole('buyer')">
@@ -439,34 +575,101 @@ img{max-width:100%;display:block}
         </div>
       </div>
     </div>
-
-    <div class="field">
-      <label>Full Name *</label>
-      <input id="ob-name" placeholder="Your full name">
+    <div class="field"><label>Full Name *</label><input id="ob-name" placeholder="Your full name"></div>
+    <div class="field"><label>Phone (WhatsApp-enabled) *</label><input id="ob-phone" placeholder="+263 77 123 4567">
+      <div class="field-hint">Buyers use this to contact you.</div>
     </div>
-    <div class="field">
-      <label>Phone Number * (WhatsApp-enabled)</label>
-      <input id="ob-phone" placeholder="+263 77 123 4567">
-      <div class="field-hint">Buyers use this to contact you about properties.</div>
-    </div>
-
     <div id="ob-consultant-fields" style="display:none">
       <div class="field-grid">
-        <div class="field">
-          <label>Agency / Company</label>
-          <input id="ob-agency" placeholder="Optional">
-        </div>
-        <div class="field">
-          <label>EACZ Number</label>
-          <input id="ob-eacz" placeholder="Optional — adds verified badge">
-        </div>
+        <div class="field"><label>Agency / Company</label><input id="ob-agency" placeholder="Optional"></div>
+        <div class="field"><label>EACZ Number</label><input id="ob-eacz" placeholder="Optional — adds verified badge"></div>
       </div>
     </div>
-
-    <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="completeOnboarding()">
+    <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="completeOnboarding()">
       Complete setup
       <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </button>
+  </div>
+</div>
+
+<!-- Listing form modal -->
+<div class="modal" id="listing-form-modal" onclick="if(event.target===this)closeModal('listing-form-modal')">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closeModal('listing-form-modal')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="lf-head">
+      <h3 id="lf-title">Add New Listing</h3>
+      <p>Fill in the details. The AI generator in Part 3 will help you write descriptions automatically.</p>
+    </div>
+    <div class="lf-body">
+      <div class="section-divider">Basic</div>
+      <div class="field"><label>Title *</label><input id="lf-title-in" placeholder="e.g. Spacious 3-bed in Borrowdale with pool"></div>
+      <div class="field-grid three">
+        <div class="field"><label>Listing Type *</label>
+          <select id="lf-listing"><option value="sale">For Sale</option><option value="rent">For Rent</option></select>
+        </div>
+        <div class="field"><label>Property Type *</label>
+          <select id="lf-type">
+            <option value="house">House</option><option value="apartment">Apartment</option>
+            <option value="townhouse">Townhouse</option><option value="cottage">Cottage</option>
+            <option value="land">Land / Stand</option><option value="commercial">Commercial</option>
+          </select>
+        </div>
+        <div class="field"><label>Price (USD) *</label><input id="lf-price" type="number" placeholder="120000"></div>
+      </div>
+      <div class="field-grid three">
+        <div class="field"><label>Bedrooms</label><input id="lf-beds" type="number" placeholder="3" min="0"></div>
+        <div class="field"><label>Bathrooms</label><input id="lf-baths" type="number" placeholder="2" min="0"></div>
+        <div class="field"><label>Status</label>
+          <select id="lf-status">
+            <option value="available">Available</option><option value="under_offer">Under Offer</option>
+            <option value="sold">Sold</option><option value="rented">Rented</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label>Suburb *</label><input id="lf-suburb" list="suburbs" placeholder="Borrowdale">
+          <datalist id="suburbs"><option>Borrowdale</option><option>Avondale</option><option>Highlands</option><option>Mount Pleasant</option><option>Greendale</option><option>Newlands</option><option>Westgate</option><option>Ballantyne Park</option><option>Glen Lorne</option><option>Chisipite</option><option>Milton Park</option><option>Hatfield</option></datalist>
+        </div>
+        <div class="field"><label>City *</label><input id="lf-city" value="Harare" list="cities">
+          <datalist id="cities"><option>Harare</option><option>Bulawayo</option><option>Mutare</option><option>Gweru</option><option>Victoria Falls</option><option>Kariba</option></datalist>
+        </div>
+      </div>
+      <div class="field"><label>Size (plot / floor)</label><input id="lf-size" placeholder="e.g. 2000m² stand, 250m² under roof"></div>
+      <div class="field"><label>Description</label><textarea id="lf-desc" placeholder="Describe the property — features, location advantages..."></textarea></div>
+
+      <div class="section-divider">Amenities</div>
+      <div class="amenity-grid" id="lf-amenities"></div>
+
+      <div class="section-divider">Photos (up to 10)</div>
+      <div class="img-manager">
+        <div class="img-list" id="lf-img-list"></div>
+        <div class="img-upload-btn">
+          <button class="btn btn-dark" onclick="document.getElementById('lf-file').click()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            Upload from device
+          </button>
+          <input type="file" id="lf-file" accept="image/*" multiple style="display:none" onchange="handleImageUpload(event)">
+        </div>
+        <p class="field-hint">Photos auto-compress. First photo is the primary one.</p>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap">
+        <button class="btn btn-outline" onclick="closeModal('listing-form-modal')">Cancel</button>
+        <button class="btn btn-primary" style="flex:1" onclick="saveListing()" id="lf-save-btn">
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span id="lf-save-txt">Publish Listing</span>
+        </button>
+        <button class="btn btn-danger" id="lf-del-btn" style="display:none" onclick="deleteCurrentListing()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Listing detail modal -->
+<div class="modal" id="listing-detail-modal" onclick="if(event.target===this)closeModal('listing-detail-modal')">
+  <div class="modal-box extra-wide">
+    <button class="modal-close" onclick="closeModal('listing-detail-modal')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div id="listing-detail-body"></div>
   </div>
 </div>
 
@@ -476,7 +679,6 @@ img{max-width:100%;display:block}
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
-/* ===== CONFIG ===== */
 const firebaseConfig = {
   apiKey:"AIzaSyCJXvvvgs8qWBRM07CrX3txlBHYk-uVYJ0",
   authDomain:"laptop-continetal.firebaseapp.com",
@@ -486,20 +688,18 @@ const firebaseConfig = {
   appId:"1:859283011492:web:de1fab803c9e67b4db3331"
 };
 const ADMIN_EMAILS = ["guvazab@gmail.com"];
-const C_USERS = "ef_users";
-const C_LISTINGS = "ef_listings";
-const C_LEADS = "ef_leads";
+const C_USERS = "ef_users", C_LISTINGS = "ef_listings", C_LEADS = "ef_leads";
+const AMENITIES = ["Swimming pool","Garden","Garage","Staff quarters","Borehole","ZESA backup","Solar power","Durawall","Electric fence","Security guard","Air-conditioning","Modern kitchen","Fireplace","Balcony","En-suite","Study","Dining room","Open plan","Furnished","Pet-friendly","Close to schools","Close to shops"];
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-/* ===== STATE ===== */
-let currentUser = null;
-let currentProfile = null;
-let onboardRole = null;
-let currentView = 'landing';
+let currentUser=null, currentProfile=null, onboardRole=null, currentView='landing';
+let listings=[], editingListing=null, editingImages=[], editingAmenities=new Set();
+let detailListing=null, detailImgIdx=0;
+let listingsUnsub=null;
 
 /* ===== HELPERS ===== */
 function $(id){return document.getElementById(id)}
@@ -508,223 +708,692 @@ function hide(id){$(id).style.display='none'}
 function openModal(id){$(id).classList.add('open')}
 function closeModal(id){$(id).classList.remove('open')}
 function esc(s){return (s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function money(n){return '$'+Number(n||0).toLocaleString()}
 function toast(msg,type=''){
   const t=$('toast');
   const ic=type==='success'?'<svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>':type==='error'?'<svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>':'';
   t.innerHTML=ic+esc(msg);t.className='show '+type;
   clearTimeout(toast._t);toast._t=setTimeout(()=>t.className='',2600);
 }
-function isAdmin(user){return user && ADMIN_EMAILS.includes((user.email||'').toLowerCase())}
+function isAdmin(u){return u && ADMIN_EMAILS.includes((u.email||'').toLowerCase())}
+function timeAgo(ts){
+  if(!ts)return '';
+  const d=ts.toDate?ts.toDate():new Date(ts);
+  const s=Math.floor((Date.now()-d.getTime())/1000);
+  if(s<60)return 'just now';if(s<3600)return Math.floor(s/60)+'m ago';
+  if(s<86400)return Math.floor(s/3600)+'h ago';if(s<2592000)return Math.floor(s/86400)+'d ago';
+  return d.toLocaleDateString();
+}
 
-/* ===== AUTH FLOW ===== */
+/* ===== AUTH ===== */
 function signIn(){openModal('signin-modal')}
 async function doGoogleSignIn(){
-  try{
-    await auth.signInWithPopup(googleProvider);
-    closeModal('signin-modal');
-  }catch(e){
-    console.error(e);
-    toast('Sign-in failed: '+(e.message||'unknown error'),'error');
-  }
+  try{await auth.signInWithPopup(googleProvider);closeModal('signin-modal')}
+  catch(e){console.error(e);toast('Sign-in failed: '+(e.message||'error'),'error')}
 }
 async function signOut(){
-  await auth.signOut();
-  currentProfile = null;
-  goTo('landing');
+  if(listingsUnsub){listingsUnsub();listingsUnsub=null}
+  await auth.signOut();currentProfile=null;listings=[];goTo('landing');
 }
 
 auth.onAuthStateChanged(async (user)=>{
-  currentUser = user;
-  hide('boot');
-  if (!user){
-    currentProfile = null;
-    goTo('landing');
-    return;
-  }
-  // Check if user profile exists
+  currentUser=user;hide('boot');
+  if(!user){currentProfile=null;listings=[];goTo('landing');return}
   try{
-    const doc = await db.collection(C_USERS).doc(user.uid).get();
-    if (!doc.exists){
-      // New user - start onboarding
-      openOnboarding();
-    } else {
-      currentProfile = doc.data();
-      routeAfterLogin();
-    }
-  }catch(e){
-    console.error(e);
-    toast('Could not load profile','error');
-  }
+    const doc=await db.collection(C_USERS).doc(user.uid).get();
+    if(!doc.exists){openOnboarding()}
+    else{currentProfile=doc.data();routeAfterLogin();subscribeListings()}
+  }catch(e){console.error(e);toast('Could not load profile','error')}
 });
 
 /* ===== ONBOARDING ===== */
 function openOnboarding(){
-  $('ob-name').value = currentUser.displayName || '';
+  $('ob-name').value=currentUser.displayName||'';
   openModal('onboard-modal');
 }
 function pickRole(role){
-  onboardRole = role;
-  document.querySelectorAll('.role-pick-item').forEach(el=>{
-    el.classList.toggle('selected', el.dataset.role===role);
-  });
-  $('ob-consultant-fields').style.display = role==='consultant' ? 'block' : 'none';
+  onboardRole=role;
+  document.querySelectorAll('.role-pick-item').forEach(el=>{el.classList.toggle('selected',el.dataset.role===role)});
+  $('ob-consultant-fields').style.display=role==='consultant'?'block':'none';
 }
 async function completeOnboarding(){
-  if (!onboardRole){toast('Pick a role first','error');return}
-  const name = $('ob-name').value.trim();
-  const phone = $('ob-phone').value.trim();
-  if (!name){toast('Name is required','error');return}
-  if (!phone || phone.replace(/\D/g,'').length < 9){toast('Valid phone number required','error');return}
-
-  const profile = {
-    uid: currentUser.uid,
-    email: currentUser.email,
-    name,
-    phone,
-    role: onboardRole,
-    status: 'active', // auto-approved; admin can suspend
-    photoURL: currentUser.photoURL || null,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  if(!onboardRole){toast('Pick a role first','error');return}
+  const name=$('ob-name').value.trim();
+  const phone=$('ob-phone').value.trim();
+  if(!name){toast('Name is required','error');return}
+  if(!phone||phone.replace(/\D/g,'').length<9){toast('Valid phone number required','error');return}
+  const profile={
+    uid:currentUser.uid,email:currentUser.email,name,phone,
+    role:onboardRole,status:'active',
+    photoURL:currentUser.photoURL||null,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
   };
-  if (onboardRole === 'consultant'){
-    profile.agency = $('ob-agency').value.trim() || null;
-    profile.eaczNumber = $('ob-eacz').value.trim() || null;
-    profile.verified = !!profile.eaczNumber; // has EACZ = auto verified badge
+  if(onboardRole==='consultant'){
+    profile.agency=$('ob-agency').value.trim()||null;
+    profile.eaczNumber=$('ob-eacz').value.trim()||null;
+    profile.verified=!!profile.eaczNumber;
   }
-
   try{
     await db.collection(C_USERS).doc(currentUser.uid).set(profile);
-    currentProfile = profile;
-    closeModal('onboard-modal');
-    toast('Welcome to EstateFlow!','success');
-    routeAfterLogin();
-  }catch(e){
-    console.error(e);
-    toast('Could not save profile: '+e.message,'error');
-  }
+    currentProfile=profile;
+    closeModal('onboard-modal');toast('Welcome to EstateFlow!','success');
+    routeAfterLogin();subscribeListings();
+  }catch(e){console.error(e);toast('Could not save: '+e.message,'error')}
 }
 
 /* ===== ROUTING ===== */
 function routeAfterLogin(){
-  if (isAdmin(currentUser)) goTo('admin');
-  else if (currentProfile?.role === 'consultant') goTo('consultant');
+  if(isAdmin(currentUser))goTo('admin');
+  else if(currentProfile?.role==='consultant')goTo('consultant');
   else goTo('buyer');
 }
-
 function goTo(view){
-  currentView = view;
+  currentView=view;
   ['landing','buyer','consultant','admin'].forEach(v=>hide('view-'+v));
-  show('view-'+view);
-  show('topnav');
-  renderNav();
-  if (view === 'consultant') renderConsultantView();
+  show('view-'+view);show('topnav');renderNav();
+  if(view==='buyer')renderListings();
+  else if(view==='consultant')renderConsultantView();
+  else if(view==='admin')renderAdminView();
 }
-
-function goHome(){
-  if (!currentUser) goTo('landing');
-  else routeAfterLogin();
-}
+function goHome(){if(!currentUser)goTo('landing');else routeAfterLogin()}
 
 function renderNav(){
-  const actions = $('nav-actions');
-  const menu = $('main-menu');
+  const actions=$('nav-actions'),menu=$('main-menu');
+  if(!currentUser){menu.innerHTML='';actions.innerHTML=`<button class="btn btn-primary" onclick="signIn()">Sign in</button>`;return}
+  const role=currentProfile?.role,admin=isAdmin(currentUser);
+  const a=(id,l)=>`<a class="${currentView===id?'active':''}" onclick="goTo('${id}')">${l}</a>`;
+  if(admin)menu.innerHTML=a('admin','Admin')+a('buyer','Browse')+a('consultant','Consultant');
+  else if(role==='consultant')menu.innerHTML=a('consultant','Dashboard')+a('buyer','Browse');
+  else menu.innerHTML=a('buyer','Browse');
 
-  if (!currentUser){
-    menu.innerHTML = '';
-    actions.innerHTML = `
-      <button class="btn btn-primary" onclick="signIn()">Sign in</button>
-    `;
-    return;
-  }
-
-  const role = currentProfile?.role;
-  const admin = isAdmin(currentUser);
-
-  if (admin){
-    menu.innerHTML = `
-      <a onclick="goTo('admin')">Admin</a>
-      <a onclick="goTo('buyer')">Browse</a>
-      <a onclick="goTo('consultant')">Consultant view</a>
-    `;
-  } else if (role === 'consultant'){
-    menu.innerHTML = `
-      <a onclick="goTo('consultant')">Dashboard</a>
-      <a onclick="goTo('buyer')">Browse</a>
-    `;
-  } else {
-    menu.innerHTML = `
-      <a onclick="goTo('buyer')">Browse</a>
-    `;
-  }
-
-  const photo = currentUser.photoURL
-    ? `<img src="${esc(currentUser.photoURL)}" onerror="this.parentElement.textContent='${esc((currentProfile?.name||currentUser.email||'?').charAt(0).toUpperCase())}'">`
-    : esc((currentProfile?.name || currentUser.email || '?').charAt(0).toUpperCase());
-  const displayName = currentProfile?.name || currentUser.displayName || currentUser.email;
-  const roleLabel = admin ? 'ADMIN' : (role === 'consultant' ? 'CONSULTANT' : 'BUYER');
-
-  actions.innerHTML = `
-    <div class="user-pill" onclick="this.classList.toggle('open')" onblur="this.classList.remove('open')" tabindex="0">
+  const photo=currentUser.photoURL
+    ?`<img src="${esc(currentUser.photoURL)}" onerror="this.style.display='none';this.parentElement.textContent='${esc((currentProfile?.name||currentUser.email||'?').charAt(0).toUpperCase())}'">`
+    :esc((currentProfile?.name||currentUser.email||'?').charAt(0).toUpperCase());
+  const dn=currentProfile?.name||currentUser.displayName||currentUser.email;
+  const rl=admin?'ADMIN':(role==='consultant'?'CONSULTANT':'BUYER');
+  actions.innerHTML=`
+    <div class="user-pill" onclick="this.classList.toggle('open')" tabindex="0">
       <div class="avatar">${photo}</div>
-      <div class="info">
-        <div class="nm">${esc(displayName)}</div>
-        <div class="rl">${roleLabel}</div>
-      </div>
+      <div class="info"><div class="nm">${esc(dn)}</div><div class="rl">${rl}</div></div>
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:14px;height:14px;color:var(--muted)"><path d="M6 9l6 6 6-6"/></svg>
       <div class="user-menu">
-        <div class="user-menu-item" onclick="toast('Profile editor coming in Part 2','')">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          My Profile
-        </div>
-        ${role==='consultant'?`<div class="user-menu-item" onclick="goTo('consultant')">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          Dashboard
-        </div>`:''}
-        ${admin?`<div class="user-menu-item" onclick="goTo('admin')">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33h0a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51h0a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v0a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-          Admin
-        </div>`:''}
+        ${role==='consultant'?`<div class="user-menu-item" onclick="goTo('consultant')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Dashboard</div>`:''}
+        ${admin?`<div class="user-menu-item" onclick="goTo('admin')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg> Admin</div>`:''}
+        <div class="user-menu-item" onclick="goTo('buyer')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Browse</div>
         <div class="user-menu-divider"></div>
-        <div class="user-menu-item danger" onclick="signOut()">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-          Sign out
-        </div>
+        <div class="user-menu-item danger" onclick="signOut()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg> Sign out</div>
       </div>
     </div>
   `;
 }
 
-/* ===== CONSULTANT VIEW ===== */
-function renderConsultantView(){
-  const w = $('consultant-pending');
-  if (currentProfile?.status === 'pending'){
-    w.style.display = 'block';
-    w.innerHTML = `
-      <div class="pending-banner">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <div><b>Account pending review.</b> Your consultant account is waiting for admin approval. You can fill in your profile while you wait.</div>
-      </div>
-    `;
-  } else if (currentProfile?.status === 'suspended'){
-    w.style.display = 'block';
-    w.innerHTML = `
-      <div class="pending-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-        <div><b>Account suspended.</b> Contact support.</div>
-      </div>
-    `;
-  } else {
-    w.style.display = 'none';
+/* ===== LISTINGS SUBSCRIPTION ===== */
+function subscribeListings(){
+  if(listingsUnsub)listingsUnsub();
+  listingsUnsub = db.collection(C_LISTINGS).onSnapshot(snap=>{
+    listings = snap.docs.map(d=>({id:d.id,...d.data()}));
+    listings.sort((a,b)=>{
+      const ta=a.createdAt?.toDate?.()?.getTime()||0;
+      const tb=b.createdAt?.toDate?.()?.getTime()||0;
+      return tb-ta;
+    });
+    if(currentView==='buyer')renderListings();
+    else if(currentView==='consultant')renderConsultantView();
+    else if(currentView==='admin')renderAdminView();
+  }, err=>console.error('listings sync',err));
+}
+
+/* ===== BUYER VIEW ===== */
+function renderListings(){
+  const grid=$('listings-grid');if(!grid)return;
+  let list=listings.filter(l=>l.status==='available'||l.status==='under_offer');
+  const q=($('search')?.value||'').toLowerCase().trim();
+  const tp=$('fltr-type')?.value||'';
+  const lt=$('fltr-listing')?.value||'';
+  const bd=parseInt($('fltr-beds')?.value||'0');
+  const srt=$('fltr-sort')?.value||'new';
+  if(q)list=list.filter(l=>(l.title+' '+l.suburb+' '+l.city+' '+(l.description||'')).toLowerCase().includes(q));
+  if(tp)list=list.filter(l=>l.propertyType===tp);
+  if(lt)list=list.filter(l=>l.listingType===lt);
+  if(bd)list=list.filter(l=>(parseInt(l.beds||'0'))>=bd);
+  if(srt==='price-asc')list.sort((a,b)=>a.price-b.price);
+  else if(srt==='price-desc')list.sort((a,b)=>b.price-a.price);
+
+  if(!list.length){
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="big">🏡</div><h3>No listings match</h3><p>Try clearing filters, or check back soon — new properties are added daily.</p></div>`;
+    return;
   }
-  $('consultant-welcome').textContent = `Welcome ${currentProfile?.name?.split(' ')[0] || 'there'} — manage your listings and track inquiries.`;
+  grid.innerHTML=list.map(l=>listingCard(l)).join('');
+}
+
+function listingCard(l){
+  const fav=(currentProfile?.favorites||[]).includes(l.id);
+  const badges=[];
+  badges.push(`<span class="lc-badge ${l.status}">${l.status==='under_offer'?'Under Offer':l.status.charAt(0).toUpperCase()+l.status.slice(1)}</span>`);
+  if(l.consultantVerified)badges.push(`<span class="lc-badge verified">Verified</span>`);
+  badges.push(`<span class="lc-badge ${l.listingType}">${l.listingType==='sale'?'For Sale':'For Rent'}</span>`);
+  const img=(l.images||[])[0]||placeholderImg(l.title);
+  const afford = affordability(l.price, l.listingType);
+  return `<div class="listing-card" onclick="openListingDetail('${l.id}')">
+    <div class="lc-img">
+      <div class="lc-badges">${badges.join('')}</div>
+      <button class="lc-fav ${fav?'on':''}" onclick="event.stopPropagation();toggleFavorite('${l.id}')" title="${fav?'Remove favorite':'Save'}">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </button>
+      <img src="${esc(img)}" alt="${esc(l.title)}" loading="lazy" onerror="this.src='${placeholderImg(l.title)}'">
+    </div>
+    <div class="lc-body">
+      <div class="lc-price">
+        <span class="now">${money(l.price)}</span>
+        ${l.listingType==='rent'?`<span class="per">/month</span>`:''}
+      </div>
+      <div class="lc-title">${esc(l.title)}</div>
+      <div class="lc-location"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> ${esc(l.suburb||'')}, ${esc(l.city||'Harare')}</div>
+      <div class="lc-specs">
+        ${l.beds?`<span class="lc-spec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12h20M4 12V7a2 2 0 012-2h4v7M14 5h4a2 2 0 012 2v5M4 18h16M4 18v-3h16v3"/></svg> ${esc(l.beds)} bed</span>`:''}
+        ${l.baths?`<span class="lc-spec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12V5a2 2 0 014 0M4 12h16v5a2 2 0 01-2 2H6a2 2 0 01-2-2z"/></svg> ${esc(l.baths)} bath</span>`:''}
+        ${l.propertyType?`<span class="lc-spec">${esc(l.propertyType.charAt(0).toUpperCase()+l.propertyType.slice(1))}</span>`:''}
+      </div>
+    </div>
+    <div class="lc-afford">
+      <span class="apart"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> ~${afford.monthly}/mo</span>
+      <span>${l.listingType==='sale'?`${afford.depositPct}% deposit: ${afford.deposit}`:'rent'}</span>
+    </div>
+  </div>`;
+}
+
+function placeholderImg(title){
+  const t=encodeURIComponent((title||'Property').slice(0,20));
+  return `data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22450%22 viewBox=%220 0 600 450%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%22 stop-color=%22%231E3A8A%22/><stop offset=%221%22 stop-color=%22%2314B8A6%22/></linearGradient></defs><rect width=%22600%22 height=%22450%22 fill=%22url(%23g)%22 opacity=%22.9%22/><path d=%22M250 200 L300 160 L350 200 L350 270 L250 270 Z%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%223%22 opacity=%22.7%22/><text x=%22300%22 y=%22340%22 font-family=%22Inter,sans-serif%22 font-size=%2218%22 fill=%22%23fff%22 opacity=%22.85%22 text-anchor=%22middle%22>${t}</text></svg>`;
+}
+
+/* ===== AFFORDABILITY ===== */
+function affordability(price, listingType, rate=12, years=20, depositPct=20){
+  if (listingType === 'rent'){
+    return {monthly: money(price), deposit: money(price*2), depositPct: 2};
+  }
+  const loan = price * (1 - depositPct/100);
+  const r = rate/100/12;
+  const n = years*12;
+  const monthly = loan * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+  return {
+    monthly: money(Math.round(monthly)),
+    deposit: money(Math.round(price*depositPct/100)),
+    depositPct
+  };
+}
+
+/* ===== LISTING DETAIL MODAL ===== */
+async function openListingDetail(id){
+  const l = listings.find(x=>x.id===id);if(!l)return;
+  detailListing=l;detailImgIdx=0;
+  renderListingDetail();
+  openModal('listing-detail-modal');
+  // Increment view count (fire and forget)
+  try{
+    await db.collection(C_LISTINGS).doc(id).update({viewCount: firebase.firestore.FieldValue.increment(1)});
+  }catch(e){/* ignore */}
+}
+
+function renderListingDetail(){
+  const l=detailListing;if(!l)return;
+  const imgs=(l.images||[]).length?l.images:[placeholderImg(l.title)];
+  const fav=(currentProfile?.favorites||[]).includes(l.id);
+  const afford=affordability(l.price, l.listingType);
+  const badges=[];
+  badges.push(`<span class="lc-badge ${l.status}">${l.status==='under_offer'?'Under Offer':l.status.charAt(0).toUpperCase()+l.status.slice(1)}</span>`);
+  if(l.consultantVerified)badges.push(`<span class="lc-badge verified">Verified Consultant</span>`);
+  badges.push(`<span class="lc-badge ${l.listingType}">${l.listingType==='sale'?'For Sale':'For Rent'}</span>`);
+
+  const ameHTML=(l.amenities||[]).map(a=>`<span>${esc(a)}</span>`).join('');
+  const consultantPhoto=l.consultantPhoto
+    ?`<img src="${esc(l.consultantPhoto)}" onerror="this.style.display='none'">`
+    :esc((l.consultantName||'?').charAt(0).toUpperCase());
+
+  $('listing-detail-body').innerHTML=`
+    <div class="detail-gallery">
+      <img id="dg-img" src="${esc(imgs[detailImgIdx])}" alt="${esc(l.title)}" onerror="this.src='${placeholderImg(l.title)}'">
+      ${imgs.length>1?`<div class="detail-gallery-nav">
+        <button class="gal-arrow" onclick="galleryNav(-1)"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button class="gal-arrow" onclick="galleryNav(1)"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>`:''}
+    </div>
+    ${imgs.length>1?`<div class="detail-thumbs">${imgs.map((s,i)=>`<div class="detail-thumb ${i===detailImgIdx?'active':''}" onclick="setDetailImg(${i})"><img src="${esc(s)}" onerror="this.src='${placeholderImg(l.title)}'"></div>`).join('')}</div>`:''}
+    <div class="detail-body">
+      <div class="detail-hdr">
+        <div>
+          <h2>${esc(l.title)}</h2>
+          <div class="locationline"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> ${esc(l.suburb||'')}, ${esc(l.city||'Harare')}, Zimbabwe</div>
+        </div>
+        <div class="detail-price-line">
+          <div class="now">${money(l.price)}</div>
+          ${l.listingType==='rent'?`<div class="per">per month</div>`:''}
+        </div>
+      </div>
+      <div class="detail-badges">${badges.join('')}</div>
+
+      <div class="share-row">
+        <button class="share-btn" onclick="toggleFavorite('${l.id}');this.querySelector('svg').setAttribute('fill',${fav?"'none'":"'currentColor'"})">
+          <svg fill="${fav?'currentColor':'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          ${fav?'Saved':'Save'}
+        </button>
+        <button class="share-btn" onclick="shareListing('${l.id}')" style="margin-left:6px">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+          Share
+        </button>
+      </div>
+
+      ${l.description?`<p class="detail-desc">${esc(l.description)}</p>`:''}
+
+      <div class="detail-stats">
+        ${l.beds?`<div class="ds-item"><div class="l">Bedrooms</div><div class="v">${esc(l.beds)}</div></div>`:''}
+        ${l.baths?`<div class="ds-item"><div class="l">Bathrooms</div><div class="v">${esc(l.baths)}</div></div>`:''}
+        ${l.size?`<div class="ds-item"><div class="l">Size</div><div class="v">${esc(l.size)}</div></div>`:''}
+        <div class="ds-item"><div class="l">Type</div><div class="v" style="text-transform:capitalize">${esc(l.propertyType||'—')}</div></div>
+      </div>
+
+      ${ameHTML?`<div class="section-divider">Amenities</div><div class="amenity-list">${ameHTML}</div>`:''}
+
+      <div class="afford-box">
+        <h4><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Affordability</h4>
+        <p class="sub">Based on a ${l.listingType==='sale'?'20% deposit + 20-year mortgage at 12% interest':'2-month deposit'}</p>
+        <div class="afford-grid">
+          <div class="af-item"><div class="l">${l.listingType==='sale'?'Monthly Payment':'Monthly Rent'}</div><div class="v">${afford.monthly}</div></div>
+          <div class="af-item"><div class="l">${l.listingType==='sale'?'Deposit Needed':'Deposit (2 months)'}</div><div class="v">${afford.deposit}</div></div>
+          <div class="af-item"><div class="l">${l.listingType==='sale'?'Total Price':'Monthly Rent'}</div><div class="v">${money(l.price)}</div></div>
+        </div>
+        <div class="af-inputs">
+          <input id="af-income" type="number" placeholder="Your monthly income ($)" oninput="updateAfford()">
+          <input id="af-deposit" type="number" placeholder="Your savings ($)" oninput="updateAfford()">
+          <select id="af-years" onchange="updateAfford()">
+            <option value="10">10 years</option><option value="15">15 years</option>
+            <option value="20" selected>20 years</option><option value="25">25 years</option>
+          </select>
+        </div>
+        <div id="af-verdict"></div>
+      </div>
+
+      <div class="consultant-box">
+        <div class="avatar">${consultantPhoto}</div>
+        <div class="info">
+          <div class="nm">${esc(l.consultantName||'Property Consultant')} ${l.consultantVerified?'<span class="verified" title="EACZ verified"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg></span>':''}</div>
+          <div class="ag">${esc(l.consultantAgency||'Independent')} · Listed ${timeAgo(l.createdAt)}</div>
+        </div>
+      </div>
+
+      <div class="contact-actions">
+        <button class="btn btn-wa" onclick="contactConsultant('whatsapp','${l.id}')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+        <button class="btn btn-outline" onclick="contactConsultant('call','${l.id}')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.72 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0122 16.92z"/></svg>
+          Call
+        </button>
+        <button class="btn btn-outline" onclick="contactConsultant('email','${l.id}')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </button>
+      </div>
+    </div>
+  `;
+  updateAfford();
+}
+
+function setDetailImg(i){
+  detailImgIdx=i;
+  const imgs=detailListing.images||[];
+  $('dg-img').src=imgs[i]||placeholderImg(detailListing.title);
+  document.querySelectorAll('.detail-thumb').forEach((el,j)=>el.classList.toggle('active',j===i));
+}
+function galleryNav(d){
+  const imgs=detailListing.images||[];if(!imgs.length)return;
+  detailImgIdx=(detailImgIdx+d+imgs.length)%imgs.length;
+  setDetailImg(detailImgIdx);
+}
+
+function updateAfford(){
+  const l=detailListing;if(!l)return;
+  const v=$('af-verdict');if(!v)return;
+  const income=parseFloat($('af-income')?.value||0);
+  const savings=parseFloat($('af-deposit')?.value||0);
+  const years=parseInt($('af-years')?.value||20);
+  if(!income && !savings){v.innerHTML='';return}
+  if(l.listingType==='rent'){
+    const monthlyRent=l.price;
+    const deposit=l.price*2;
+    const rentPct=income?(monthlyRent/income*100):0;
+    let cls='ok',msg='';
+    if(income && rentPct>40){cls='no';msg=`Rent is ${rentPct.toFixed(0)}% of your income — banks typically recommend under 30%`}
+    else if(income && rentPct>30){cls='tight';msg=`Rent is ${rentPct.toFixed(0)}% of income — tight but workable`}
+    else if(income){cls='ok';msg=`Rent is ${rentPct.toFixed(0)}% of income — comfortable`}
+    if(savings && savings<deposit)msg+=(msg?'. ':'')+`Need ${money(deposit-savings)} more for deposit`;
+    v.className='afford-verdict '+cls;
+    v.textContent=msg||'Looks affordable for you!';
+  } else {
+    const depositPct=20;
+    const neededDeposit=l.price*depositPct/100;
+    const loan=l.price-savings;
+    if(savings<neededDeposit){
+      v.className='afford-verdict no';
+      v.textContent=`You need ${money(neededDeposit)} deposit — short by ${money(neededDeposit-savings)}`;
+      return;
+    }
+    const r=12/100/12,n=years*12;
+    const monthly=loan*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+    const pct=income?(monthly/income*100):0;
+    let cls='ok',msg=`Estimated ${money(Math.round(monthly))}/mo over ${years}yr`;
+    if(income){
+      if(pct>40){cls='no';msg+=` — ${pct.toFixed(0)}% of your income (too high, banks want under 30%)`}
+      else if(pct>30){cls='tight';msg+=` — ${pct.toFixed(0)}% of income (tight)`}
+      else{msg+=` — ${pct.toFixed(0)}% of income (comfortable)`}
+    }
+    v.className='afford-verdict '+cls;v.textContent=msg;
+  }
+}
+
+/* ===== CONTACT ===== */
+async function contactConsultant(method, listingId){
+  const l = listings.find(x=>x.id===listingId);if(!l)return;
+  if(!currentUser){toast('Sign in to contact','error');signIn();return}
+  const msg = `Hello ${l.consultantName||'there'}! I'm interested in "${l.title}" (${l.suburb}, ${money(l.price)}). Could you share more details?`;
+
+  // Save lead
+  try{
+    await db.collection(C_LEADS).add({
+      listingId: l.id, listingTitle: l.title,
+      consultantId: l.consultantId, consultantName: l.consultantName,
+      buyerId: currentUser.uid,
+      buyerName: currentProfile?.name || currentUser.displayName,
+      buyerPhone: currentProfile?.phone || '',
+      buyerEmail: currentUser.email,
+      message: msg, method, status: 'new',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }catch(e){console.error('lead save',e)}
+
+  const phone = (l.consultantPhone||'').replace(/\D/g,'');
+  if (method === 'whatsapp' && phone){
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank');
+  } else if (method === 'call' && phone){
+    window.location.href = `tel:+${phone}`;
+  } else if (method === 'email' && l.consultantEmail){
+    window.location.href = `mailto:${l.consultantEmail}?subject=${encodeURIComponent('About: '+l.title)}&body=${encodeURIComponent(msg)}`;
+  } else {
+    toast('Consultant contact info not available','error');
+  }
+  toast('Inquiry sent','success');
+}
+
+/* ===== FAVORITES ===== */
+async function toggleFavorite(listingId){
+  if(!currentUser){signIn();return}
+  const favs = new Set(currentProfile?.favorites||[]);
+  const wasOn = favs.has(listingId);
+  if(wasOn)favs.delete(listingId);else favs.add(listingId);
+  currentProfile.favorites = [...favs];
+  try{
+    await db.collection(C_USERS).doc(currentUser.uid).update({favorites: currentProfile.favorites});
+    if(currentView==='buyer')renderListings();
+    if($('listing-detail-modal').classList.contains('open'))renderListingDetail();
+    toast(wasOn?'Removed from favorites':'Saved to favorites','success');
+  }catch(e){toast('Could not save','error')}
+}
+
+/* ===== SHARE ===== */
+async function shareListing(id){
+  const l=listings.find(x=>x.id===id);if(!l)return;
+  const url=`${location.origin}${location.pathname}#listing=${id}`;
+  const text=`${l.title} — ${money(l.price)}${l.listingType==='rent'?'/month':''}\n${l.suburb}, ${l.city}\n\n${url}`;
+  if(navigator.share){
+    try{await navigator.share({title:l.title,text,url});return}catch(e){/* fallthrough */}
+  }
+  // WhatsApp fallback
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`,'_blank');
+}
+
+/* ===== CONSULTANT DASHBOARD ===== */
+function renderConsultantView(){
+  // Pending/suspended banner
+  const w=$('consultant-pending');
+  if(currentProfile?.status==='pending'){
+    w.innerHTML=`<div class="pending-banner"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div><b>Account pending review.</b> You can still prepare listings while you wait.</div></div>`;
+  }else if(currentProfile?.status==='suspended'){
+    w.innerHTML=`<div class="pending-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div><b>Account suspended.</b> Contact support.</div></div>`;
+  }else{w.innerHTML=''}
+
+  $('consultant-welcome').textContent=`Welcome ${currentProfile?.name?.split(' ')[0]||'there'} — manage your listings and inquiries.`;
+
+  const mine = listings.filter(l => l.consultantId === currentUser.uid);
+  const active = mine.filter(l => l.status === 'available' || l.status === 'under_offer');
+  const totalViews = mine.reduce((s,l)=>s+(l.viewCount||0),0);
+
+  $('consultant-stats').innerHTML=`
+    <div class="stat-box"><div class="n">${active.length}</div><div class="l">Active Listings</div></div>
+    <div class="stat-box"><div class="n">${mine.length}</div><div class="l">Total Listings</div></div>
+    <div class="stat-box"><div class="n">${totalViews}</div><div class="l">Total Views</div></div>
+    <div class="stat-box"><div class="n">0</div><div class="l">New Inquiries</div></div>
+  `;
+
+  const wrap=$('consultant-listings');
+  if(!mine.length){
+    wrap.innerHTML=`<div class="empty-state"><div class="big">📋</div><h3>No listings yet</h3><p>Publish your first property to start reaching buyers.</p><button class="btn btn-primary" onclick="openListingForm()"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Create Your First Listing</button></div>`;
+    return;
+  }
+  wrap.innerHTML=`<div class="listings-table">
+    <div class="lt-head">
+      <div></div><div>Property</div><div>Location</div><div>Type</div><div>Views</div><div>Status</div><div>Actions</div>
+    </div>
+    ${mine.map(l=>{
+      const img=(l.images||[])[0]||placeholderImg(l.title);
+      return `<div class="lt-row">
+        <img class="lt-img" src="${esc(img)}" onerror="this.src='${placeholderImg(l.title)}'">
+        <div><div class="lt-title">${esc(l.title)}</div><div class="lt-sub">${money(l.price)}${l.listingType==='rent'?'/mo':''}</div></div>
+        <div>${esc(l.suburb||'')}, ${esc(l.city||'')}</div>
+        <div style="text-transform:capitalize">${esc(l.propertyType||'')}</div>
+        <div>${l.viewCount||0}</div>
+        <div><span class="lt-status ${l.status}">${l.status==='under_offer'?'Offer':l.status}</span></div>
+        <div class="lt-actions">
+          <button class="btn btn-sm btn-outline" onclick="openListingDetail('${l.id}')">View</button>
+          <button class="btn btn-sm btn-outline" onclick="editListing('${l.id}')">Edit</button>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+/* ===== LISTING FORM ===== */
+function openListingForm(){
+  editingListing=null;editingImages=[];editingAmenities=new Set();
+  $('lf-title').textContent='Add New Listing';
+  $('lf-save-txt').textContent='Publish Listing';
+  $('lf-del-btn').style.display='none';
+  $('lf-title-in').value='';
+  $('lf-listing').value='sale';$('lf-type').value='house';$('lf-status').value='available';
+  $('lf-price').value='';$('lf-beds').value='';$('lf-baths').value='';
+  $('lf-suburb').value='';$('lf-city').value='Harare';$('lf-size').value='';$('lf-desc').value='';
+  renderAmenities();renderImageList();
+  openModal('listing-form-modal');
+}
+
+function editListing(id){
+  const l=listings.find(x=>x.id===id);if(!l)return;
+  editingListing=l;
+  editingImages=[...(l.images||[])];
+  editingAmenities=new Set(l.amenities||[]);
+  $('lf-title').textContent='Edit Listing';
+  $('lf-save-txt').textContent='Save Changes';
+  $('lf-del-btn').style.display='inline-flex';
+  $('lf-title-in').value=l.title||'';
+  $('lf-listing').value=l.listingType||'sale';
+  $('lf-type').value=l.propertyType||'house';
+  $('lf-status').value=l.status||'available';
+  $('lf-price').value=l.price||'';
+  $('lf-beds').value=l.beds||'';
+  $('lf-baths').value=l.baths||'';
+  $('lf-suburb').value=l.suburb||'';
+  $('lf-city').value=l.city||'Harare';
+  $('lf-size').value=l.size||'';
+  $('lf-desc').value=l.description||'';
+  renderAmenities();renderImageList();
+  openModal('listing-form-modal');
+}
+
+function renderAmenities(){
+  $('lf-amenities').innerHTML=AMENITIES.map(a=>`
+    <label class="amenity ${editingAmenities.has(a)?'on':''}">
+      <span class="cb"></span>
+      <input type="checkbox" value="${esc(a)}" ${editingAmenities.has(a)?'checked':''} onchange="toggleAmenity('${esc(a)}',this.checked)">
+      <span>${esc(a)}</span>
+    </label>`).join('');
+}
+function toggleAmenity(a,on){
+  if(on)editingAmenities.add(a);else editingAmenities.delete(a);
+  document.querySelectorAll('.amenity').forEach(el=>{const cb=el.querySelector('input');el.classList.toggle('on',cb.checked)});
+}
+
+function renderImageList(){
+  const list=$('lf-img-list');if(!list)return;
+  const slots=editingImages.map((src,i)=>`
+    <div class="img-slot filled ${i===0?'primary':''}">
+      <img src="${esc(src)}" onerror="this.parentElement.innerHTML='<div class=\\'img-empty\\'>⚠ Bad image</div>'">
+      ${i===0?'<div class="img-badge">Primary</div>':''}
+      <div class="img-actions">
+        ${i>0?`<button onclick="moveImg(${i},-1)" title="Left"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>`:''}
+        ${i<editingImages.length-1?`<button onclick="moveImg(${i},1)" title="Right"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>`:''}
+        <button class="del" onclick="removeImg(${i})" title="Remove"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+    </div>`).join('');
+  const emptyN=Math.max(0,Math.min(3,10-editingImages.length));
+  const es=Array(emptyN).fill(0).map(()=>`<div class="img-slot"><div class="img-empty" onclick="document.getElementById('lf-file').click()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add photo</span></div></div>`).join('');
+  list.innerHTML=slots+es;
+}
+function moveImg(i,d){const j=i+d;if(j<0||j>=editingImages.length)return;[editingImages[i],editingImages[j]]=[editingImages[j],editingImages[i]];renderImageList()}
+function removeImg(i){editingImages.splice(i,1);renderImageList()}
+
+async function handleImageUpload(e){
+  const files=Array.from(e.target.files||[]);e.target.value='';
+  if(!files.length)return;
+  const slots=10-editingImages.length;
+  if(slots<=0){toast('Max 10 images','error');return}
+  const take=files.slice(0,slots);
+  toast(`Compressing ${take.length} image${take.length>1?'s':''}...`);
+  for(const f of take){
+    try{const d=await compressImage(f,1400,.82);editingImages.push(d)}
+    catch(err){toast('Upload failed','error');console.error(err)}
+  }
+  renderImageList();
+  toast(`Added ${take.length} image${take.length>1?'s':''}`,'success');
+}
+function compressImage(file,maxDim=1400,q=.82){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onerror=()=>reject(new Error('read failed'));
+    r.onload=()=>{
+      const img=new Image();
+      img.onerror=()=>reject(new Error('decode failed'));
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        if(w>maxDim||h>maxDim){const rr=Math.min(maxDim/w,maxDim/h);w=Math.round(w*rr);h=Math.round(h*rr)}
+        const c=document.createElement('canvas');c.width=w;c.height=h;
+        const ctx=c.getContext('2d');
+        ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+        ctx.drawImage(img,0,0,w,h);
+        resolve(c.toDataURL('image/jpeg',q));
+      };
+      img.src=r.result;
+    };
+    r.readAsDataURL(file);
+  });
+}
+
+async function saveListing(){
+  const title=$('lf-title-in').value.trim();
+  if(!title){toast('Title is required','error');return}
+  const price=parseFloat($('lf-price').value);
+  if(isNaN(price)||price<=0){toast('Valid price required','error');return}
+  const suburb=$('lf-suburb').value.trim();
+  if(!suburb){toast('Suburb is required','error');return}
+
+  const data={
+    title,
+    listingType:$('lf-listing').value,
+    propertyType:$('lf-type').value,
+    status:$('lf-status').value,
+    price,
+    beds:$('lf-beds').value||null,
+    baths:$('lf-baths').value||null,
+    suburb,
+    city:$('lf-city').value.trim()||'Harare',
+    size:$('lf-size').value.trim()||null,
+    description:$('lf-desc').value.trim()||null,
+    amenities:[...editingAmenities],
+    images:[...editingImages],
+    consultantId:currentUser.uid,
+    consultantName:currentProfile.name,
+    consultantEmail:currentUser.email,
+    consultantPhone:currentProfile.phone,
+    consultantPhoto:currentUser.photoURL||null,
+    consultantAgency:currentProfile.agency||null,
+    consultantVerified:!!currentProfile.verified,
+    updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+  };
+
+  const btn=$('lf-save-btn');btn.disabled=true;
+  btn.innerHTML=`<div class="spinner small white"></div> Saving...`;
+
+  try{
+    if(editingListing){
+      await db.collection(C_LISTINGS).doc(editingListing.id).update(data);
+      toast('Listing updated','success');
+    } else {
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      data.viewCount=0;
+      await db.collection(C_LISTINGS).add(data);
+      toast('Listing published!','success');
+    }
+    closeModal('listing-form-modal');
+  }catch(e){
+    console.error(e);toast('Save failed: '+e.message,'error');
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML=`<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/></svg> <span id="lf-save-txt">${editingListing?'Save Changes':'Publish Listing'}</span>`;
+  }
+}
+
+async function deleteCurrentListing(){
+  if(!editingListing)return;
+  if(!confirm(`Delete "${editingListing.title}"? This cannot be undone.`))return;
+  try{
+    await db.collection(C_LISTINGS).doc(editingListing.id).delete();
+    toast('Listing deleted','success');
+    closeModal('listing-form-modal');
+  }catch(e){toast('Delete failed: '+e.message,'error')}
+}
+
+/* ===== ADMIN VIEW ===== */
+function renderAdminView(){
+  const total=listings.length;
+  const active=listings.filter(l=>l.status==='available').length;
+  const sold=listings.filter(l=>l.status==='sold'||l.status==='rented').length;
+  $('admin-stats').innerHTML=`
+    <div class="stat-box"><div class="n">${total}</div><div class="l">Total Listings</div></div>
+    <div class="stat-box"><div class="n">${active}</div><div class="l">Available</div></div>
+    <div class="stat-box"><div class="n">${sold}</div><div class="l">Sold / Rented</div></div>
+    <div class="stat-box"><div class="n">—</div><div class="l">Users (Part 3)</div></div>
+  `;
 }
 
 /* ===== INIT ===== */
-$('yr').textContent = new Date().getFullYear();
-// Keep the user menu closable with outside click
-document.addEventListener('click', (e)=>{
-  if (!e.target.closest('.user-pill')){
+$('yr').textContent=new Date().getFullYear();
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.user-pill')){
     document.querySelectorAll('.user-pill').forEach(el=>el.classList.remove('open'));
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeModal('listing-detail-modal');closeModal('listing-form-modal');
   }
 });
 </script>
