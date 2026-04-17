@@ -1703,7 +1703,7 @@ async function saveGroqKey(){
   await saveGlobalSettings();
 }
 async function suspendUser(uid){
-  if(!confirm('Suspend this user? Their listings will stay up but they can\\'t post new ones.'))return;
+  if(!confirm("Suspend this user? Their listings will stay up but they cannot post new ones."))return;
   try{await db.collection(C_USERS).doc(uid).update({status:'suspended'});toast('User suspended','success')}
   catch(e){toast('Failed','error')}
 }
