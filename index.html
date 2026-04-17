@@ -150,6 +150,33 @@ img{max-width:100%;display:block}
 .role-pick-item h4{font-size:.92rem;font-weight:700;margin-bottom:2px}
 .role-pick-item p{font-size:.76rem;color:var(--muted);line-height:1.5}
 
+/* STARS & REVIEWS */
+.stars{display:inline-flex;gap:2px;align-items:center}
+.stars svg{width:14px;height:14px;color:#fbbf24}
+.stars.lg svg{width:18px;height:18px}
+.stars .empty svg{color:var(--border-2)}
+.star-picker{display:inline-flex;gap:4px;cursor:pointer}
+.star-picker button{background:none;border:0;padding:3px;color:var(--border-2);cursor:pointer;transition:color .15s}
+.star-picker button.on,.star-picker button:hover,.star-picker button:hover ~ button:not(.on){color:#fbbf24}
+.star-picker button svg{width:24px;height:24px;fill:currentColor}
+.review-item{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:8px}
+.review-item .head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.review-item .avatar{width:32px;height:32px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;overflow:hidden;flex-shrink:0}
+.review-item .avatar img{width:100%;height:100%;object-fit:cover}
+.review-item .nm{font-weight:600;font-size:.88rem}
+.review-item .ts{font-size:.72rem;color:var(--muted);font-family:var(--mono)}
+.review-item .txt{font-size:.88rem;color:var(--text-2);line-height:1.55;white-space:pre-wrap}
+
+/* FEATURED */
+.lc-badge.featured{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;display:inline-flex;align-items:center;gap:3px}
+.lc-badge.featured svg{width:10px;height:10px;fill:currentColor}
+
+/* Analytics */
+.analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.analytics-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:10px 14px}
+.analytics-box .k{font-family:var(--mono);font-size:.64rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.analytics-box .v{font-size:1.2rem;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+
 /* AI CHAT WIDGET */
 #chat-btn{position:fixed;bottom:24px;right:24px;z-index:80;width:58px;height:58px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 28px rgba(30,58,138,.4);transition:all .2s;border:0;display:none}
 #chat-btn.on{display:flex}
@@ -530,6 +557,10 @@ img{max-width:100%;display:block}
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:13px;height:13px;vertical-align:-1px"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         Favorites
       </button>
+      <button class="chip" onclick="saveSearch()" title="Save this search">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:13px;height:13px;vertical-align:-1px"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+        Save Search
+      </button>
     </div>
     <div class="listings-grid" id="listings-grid">
       <div class="loader" style="grid-column:1/-1"><div class="spinner"></div><p>Loading listings...</p></div>
@@ -720,6 +751,47 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- Profile edit modal -->
+<div class="modal" id="profile-modal" onclick="if(event.target===this)closeModal('profile-modal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('profile-modal')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h3>Edit Profile</h3>
+    <p class="lede">Update your details. Changes sync everywhere.</p>
+    <div class="field"><label>Full Name</label><input id="pf-name"></div>
+    <div class="field"><label>Phone (WhatsApp)</label><input id="pf-phone"></div>
+    <div class="field"><label>I am a...</label>
+      <select id="pf-role">
+        <option value="buyer">Buyer / Renter</option>
+        <option value="consultant">Property Consultant</option>
+      </select>
+    </div>
+    <div id="pf-consultant-fields" style="display:none">
+      <div class="field-grid">
+        <div class="field"><label>Agency</label><input id="pf-agency"></div>
+        <div class="field"><label>EACZ Number</label><input id="pf-eacz"></div>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="saveProfile()">Save Changes</button>
+  </div>
+</div>
+
+<!-- Review modal -->
+<div class="modal" id="review-modal" onclick="if(event.target===this)closeModal('review-modal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('review-modal')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h3>Leave a Review</h3>
+    <p class="lede" id="review-lede">How was your experience with this consultant?</p>
+    <div class="field">
+      <label>Rating</label>
+      <div class="star-picker" id="star-picker">
+        ${[1,2,3,4,5].map(n=>`<button onclick="setReviewStars(${n})" data-n="${n}"><svg viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg></button>`).join('')}
+      </div>
+    </div>
+    <div class="field"><label>Your review (optional)</label><textarea id="rv-text" placeholder="Share your experience... was the consultant responsive, honest, helpful?"></textarea></div>
+    <button class="btn btn-primary" style="width:100%" onclick="doSubmitReview()">Post Review</button>
+  </div>
+</div>
+
 <!-- AI chat -->
 <button id="chat-btn" onclick="toggleChat()" title="Ask AI to find your home">
   <span class="pulse"></span>
@@ -755,7 +827,7 @@ const firebaseConfig = {
   appId:"1:859283011492:web:de1fab803c9e67b4db3331"
 };
 const ADMIN_EMAILS = ["guvazab@gmail.com","guvazakundai@gmail.com"];
-const C_USERS = "ef_users", C_LISTINGS = "ef_listings", C_LEADS = "ef_leads", C_SETTINGS = "ef_settings";
+const C_USERS = "ef_users", C_LISTINGS = "ef_listings", C_LEADS = "ef_leads", C_SETTINGS = "ef_settings", C_REVIEWS = "ef_reviews";
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile";
 const AMENITIES = ["Swimming pool","Garden","Garage","Staff quarters","Borehole","ZESA backup","Solar power","Durawall","Electric fence","Security guard","Air-conditioning","Modern kitchen","Fireplace","Balcony","En-suite","Study","Dining room","Open plan","Furnished","Pet-friendly","Close to schools","Close to shops"];
@@ -774,6 +846,8 @@ let myLeads=[], allUsers=[];
 let consultantTab='listings', adminTab='overview';
 let buyerShowFavorites=false;
 let chatMessages=[];
+let reviews=[], reviewsUnsub=null;
+let savedSearches=[];
 
 /* ===== HELPERS ===== */
 function $(id){return document.getElementById(id)}
@@ -820,7 +894,7 @@ auth.onAuthStateChanged(async (user)=>{
   try{
     const doc=await db.collection(C_USERS).doc(user.uid).get();
     if(!doc.exists){openOnboarding()}
-    else{currentProfile=doc.data();await loadGlobalSettings();routeAfterLogin();subscribeListings();subscribeLeads();subscribeAllUsers()}
+    else{currentProfile=doc.data();await loadGlobalSettings();loadSavedSearches();routeAfterLogin();subscribeListings();subscribeLeads();subscribeAllUsers();subscribeReviews();openDeepLinkIfAny()}
   }catch(e){console.error(e);toast('Could not load profile','error')}
 });
 
@@ -855,7 +929,7 @@ async function completeOnboarding(){
     await db.collection(C_USERS).doc(currentUser.uid).set(profile);
     currentProfile=profile;
     closeModal('onboard-modal');toast('Welcome to EstateFlow!','success');
-    await loadGlobalSettings();routeAfterLogin();subscribeListings();subscribeLeads();subscribeAllUsers();
+    await loadGlobalSettings();loadSavedSearches();routeAfterLogin();subscribeListings();subscribeLeads();subscribeAllUsers();subscribeReviews();openDeepLinkIfAny();
   }catch(e){console.error(e);toast('Could not save: '+e.message,'error')}
 }
 
@@ -901,6 +975,7 @@ function renderNav(){
         ${role==='consultant'?`<div class="user-menu-item" onclick="goTo('consultant')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Dashboard</div>`:''}
         ${admin?`<div class="user-menu-item" onclick="goTo('admin')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg> Admin</div>`:''}
         <div class="user-menu-item" onclick="goTo('buyer')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Browse</div>
+        <div class="user-menu-item" onclick="openProfile()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Edit Profile</div>
         <div class="user-menu-divider"></div>
         <div class="user-menu-item danger" onclick="signOut()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg> Sign out</div>
       </div>
@@ -935,6 +1010,48 @@ async function callGroq(systemPrompt, userPrompt, jsonMode=false){
   if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${r.status}`)}
   const d=await r.json();
   return d.choices[0].message.content;
+}
+
+/* ===== REVIEWS ===== */
+function subscribeReviews(){
+  if(reviewsUnsub){reviewsUnsub();reviewsUnsub=null}
+  reviewsUnsub = db.collection(C_REVIEWS).onSnapshot(snap=>{
+    reviews = snap.docs.map(d=>({id:d.id,...d.data()}));
+    // Re-render affected views
+    if($('listing-detail-modal').classList.contains('open'))renderListingDetail();
+    if(currentView==='admin' && adminTab==='users')renderAdminView();
+  }, err=>console.error('reviews',err));
+}
+function consultantRating(consultantId){
+  const rs = reviews.filter(r=>r.consultantId===consultantId);
+  if(!rs.length)return{avg:0,count:0};
+  const avg = rs.reduce((s,r)=>s+r.rating,0)/rs.length;
+  return{avg:Math.round(avg*10)/10,count:rs.length};
+}
+function starsHTML(rating,opts={}){
+  const r = Math.round(rating*2)/2;
+  let out='<span class="stars'+(opts.lg?' lg':'')+'">';
+  for(let i=1;i<=5;i++){
+    if(i<=r)out+=`<svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>`;
+    else out+=`<svg fill="var(--border-2)" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>`;
+  }
+  out+='</span>';
+  return out;
+}
+async function submitReview(consultantId, listingId, rating, text){
+  if(!currentUser){signIn();return}
+  try{
+    await db.collection(C_REVIEWS).add({
+      consultantId, listingId,
+      buyerId:currentUser.uid,
+      buyerName:currentProfile?.name||currentUser.displayName,
+      buyerPhoto:currentProfile?.photoURL||currentUser.photoURL||null,
+      rating, text:text||'',
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    toast('Review posted ⭐','success');
+    closeModal('review-modal');
+  }catch(e){toast('Review failed: '+e.message,'error')}
 }
 
 /* ===== LEADS SUBSCRIPTION ===== */
@@ -994,6 +1111,8 @@ function renderListings(){
   if(bd)list=list.filter(l=>(parseInt(l.beds||'0'))>=bd);
   if(srt==='price-asc')list.sort((a,b)=>a.price-b.price);
   else if(srt==='price-desc')list.sort((a,b)=>b.price-a.price);
+  // Always surface featured on top
+  list.sort((a,b)=>(b.featured?1:0)-(a.featured?1:0));
 
   if(!list.length){
     grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="big">🏡</div><h3>No listings match</h3><p>Try clearing filters, or check back soon — new properties are added daily.</p></div>`;
@@ -1005,6 +1124,7 @@ function renderListings(){
 function listingCard(l){
   const fav=(currentProfile?.favorites||[]).includes(l.id);
   const badges=[];
+  if(l.featured)badges.push(`<span class="lc-badge featured"><svg viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg> Featured</span>`);
   badges.push(`<span class="lc-badge ${l.status}">${l.status==='under_offer'?'Under Offer':l.status.charAt(0).toUpperCase()+l.status.slice(1)}</span>`);
   if(l.consultantVerified)badges.push(`<span class="lc-badge verified">Verified</span>`);
   badges.push(`<span class="lc-badge ${l.listingType}">${l.listingType==='sale'?'For Sale':'For Rent'}</span>`);
@@ -1160,9 +1280,27 @@ function renderListingDetail(){
         <div class="avatar">${consultantPhoto}</div>
         <div class="info">
           <div class="nm">${esc(l.consultantName||'Property Consultant')} ${l.consultantVerified?'<span class="verified" title="EACZ verified"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg></span>':''}</div>
-          <div class="ag">${esc(l.consultantAgency||'Independent')} · Listed ${timeAgo(l.createdAt)}</div>
+          <div class="ag">${(()=>{const r=consultantRating(l.consultantId);return r.count?`${starsHTML(r.avg)} <span style="font-weight:600;color:var(--text-2)">${r.avg}</span> <span style="color:var(--muted)">(${r.count} review${r.count===1?'':'s'})</span> · `:''})()}${esc(l.consultantAgency||'Independent')} · Listed ${timeAgo(l.createdAt)}</div>
         </div>
       </div>
+
+      <div class="section-divider">Reviews</div>
+      ${(()=>{
+        const listingReviews = reviews.filter(r=>r.consultantId===l.consultantId).slice(0,5);
+        const canReview = currentUser && currentUser.uid !== l.consultantId;
+        const addBtn = canReview ? `<button class="btn btn-outline btn-sm" onclick="openReviewModal('${l.consultantId}','${l.id}','${esc(l.consultantName||'')}')" style="margin-bottom:10px"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg> Leave a Review</button>`:'';
+        if(!listingReviews.length) return addBtn+`<p style="color:var(--muted);font-size:.88rem">No reviews yet — be the first.</p>`;
+        return addBtn + listingReviews.map(r=>`<div class="review-item">
+          <div class="head">
+            <div class="avatar">${r.buyerPhoto?`<img src="${esc(r.buyerPhoto)}" onerror="this.style.display='none'">`:esc((r.buyerName||'?').charAt(0).toUpperCase())}</div>
+            <div style="flex:1">
+              <div class="nm">${esc(r.buyerName||'Anonymous')}</div>
+              <div style="display:flex;align-items:center;gap:6px">${starsHTML(r.rating)}<span class="ts">${timeAgo(r.createdAt)}</span></div>
+            </div>
+          </div>
+          ${r.text?`<div class="txt">${esc(r.text)}</div>`:''}
+        </div>`).join('');
+      })()}
 
       <div class="contact-actions">
         <button class="btn btn-wa" onclick="contactConsultant('whatsapp','${l.id}')">
@@ -1351,6 +1489,7 @@ function renderConsultantView(){
         <div class="lt-actions">
           <button class="btn btn-sm btn-outline" onclick="openListingDetail('${l.id}')">View</button>
           <button class="btn btn-sm btn-outline" onclick="editListing('${l.id}')">Edit</button>
+          ${isAdmin(currentUser)?`<button class="btn btn-sm ${l.featured?'btn-danger':'btn-success'}" onclick="toggleFeatured('${l.id}')">${l.featured?'Unfeature':'Feature'}</button>`:''}
         </div>
       </div>`;
     }).join('')}
@@ -1710,6 +1849,102 @@ async function suspendUser(uid){
 async function activateUser(uid){
   try{await db.collection(C_USERS).doc(uid).update({status:'active'});toast('User activated','success')}
   catch(e){toast('Failed','error')}
+}
+
+/* ===== PROFILE ===== */
+function openProfile(){
+  const p=currentProfile||{};
+  $('pf-name').value=p.name||'';
+  $('pf-phone').value=p.phone||'';
+  $('pf-role').value=p.role||'buyer';
+  $('pf-agency').value=p.agency||'';
+  $('pf-eacz').value=p.eaczNumber||'';
+  $('pf-consultant-fields').style.display=(p.role==='consultant')?'block':'none';
+  $('pf-role').onchange=()=>{$('pf-consultant-fields').style.display=$('pf-role').value==='consultant'?'block':'none'};
+  openModal('profile-modal');
+}
+async function saveProfile(){
+  const name=$('pf-name').value.trim();
+  const phone=$('pf-phone').value.trim();
+  const role=$('pf-role').value;
+  if(!name){toast('Name required','error');return}
+  if(!phone||phone.replace(/\D/g,'').length<9){toast('Valid phone required','error');return}
+  const data={name,phone,role};
+  if(role==='consultant'){
+    data.agency=$('pf-agency').value.trim()||null;
+    data.eaczNumber=$('pf-eacz').value.trim()||null;
+    data.verified=!!data.eaczNumber;
+  }
+  try{
+    await db.collection(C_USERS).doc(currentUser.uid).update(data);
+    Object.assign(currentProfile,data);
+    closeModal('profile-modal');toast('Profile updated','success');
+    renderNav();
+    if(currentView==='consultant')renderConsultantView();
+    // If role changed, re-route
+    if(role!==currentProfile.role)routeAfterLogin();
+  }catch(e){toast('Save failed: '+e.message,'error')}
+}
+
+/* ===== REVIEW UI ===== */
+let reviewContext={consultantId:null,listingId:null,rating:0};
+function openReviewModal(consultantId, listingId, consultantName){
+  if(!currentUser){signIn();return}
+  reviewContext={consultantId,listingId,rating:0};
+  $('review-lede').textContent=`How was your experience with ${consultantName||'this consultant'}?`;
+  $('rv-text').value='';
+  document.querySelectorAll('.star-picker button').forEach(b=>b.classList.remove('on'));
+  openModal('review-modal');
+}
+function setReviewStars(n){
+  reviewContext.rating=n;
+  document.querySelectorAll('.star-picker button').forEach((b,i)=>b.classList.toggle('on',i<n));
+}
+async function doSubmitReview(){
+  if(!reviewContext.rating){toast('Pick a star rating','error');return}
+  await submitReview(reviewContext.consultantId, reviewContext.listingId, reviewContext.rating, $('rv-text').value.trim());
+  if($('listing-detail-modal').classList.contains('open'))renderListingDetail();
+}
+
+/* ===== DEEP LINKS ===== */
+function openDeepLinkIfAny(){
+  const hash=location.hash||'';
+  const m=hash.match(/listing=([^&]+)/);
+  if(m && m[1]){
+    const id=m[1];
+    // Wait for listings to be subscribed — try after short delay
+    const tryOpen=(n=0)=>{
+      const l=listings.find(x=>x.id===id);
+      if(l){goTo('buyer');setTimeout(()=>openListingDetail(id),200)}
+      else if(n<10)setTimeout(()=>tryOpen(n+1),300);
+    };
+    tryOpen();
+  }
+}
+
+/* ===== SAVED SEARCHES ===== */
+function loadSavedSearches(){
+  try{savedSearches=JSON.parse(localStorage.getItem('ef_saved_searches')||'[]')}catch{savedSearches=[]}
+}
+function saveSearch(){
+  const q=$('search')?.value?.trim();
+  const tp=$('fltr-type')?.value;
+  const lt=$('fltr-listing')?.value;
+  const bd=$('fltr-beds')?.value;
+  if(!q&&!tp&&!lt&&!bd){toast('Enter something to save','error');return}
+  const s={q,tp,lt,bd,savedAt:Date.now()};
+  const exists=savedSearches.find(x=>JSON.stringify(x)===JSON.stringify({...x,savedAt:s.savedAt}));
+  if(!exists){savedSearches.push(s);localStorage.setItem('ef_saved_searches',JSON.stringify(savedSearches))}
+  toast('Search saved','success');
+}
+
+/* ===== FEATURED TOGGLE (admin) ===== */
+async function toggleFeatured(id){
+  const l=listings.find(x=>x.id===id);if(!l)return;
+  try{
+    await db.collection(C_LISTINGS).doc(id).update({featured:!l.featured});
+    toast(l.featured?'Unfeatured':'Featured ⭐','success');
+  }catch(e){toast('Failed: '+e.message,'error')}
 }
 
 /* ===== AI CHAT SEARCH ===== */
