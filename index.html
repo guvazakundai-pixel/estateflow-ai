@@ -715,7 +715,11 @@ function toast(msg,type=''){
   t.innerHTML=ic+esc(msg);t.className='show '+type;
   clearTimeout(toast._t);toast._t=setTimeout(()=>t.className='',2600);
 }
-function isAdmin(u){return u && ADMIN_EMAILS.includes((u.email||'').toLowerCase())}
+function isAdmin(u){
+  if(!u)return false;
+  if(currentProfile?.isAdmin===true)return true;
+  return ADMIN_EMAILS.includes((u.email||'').toLowerCase().trim());
+}
 function timeAgo(ts){
   if(!ts)return '';
   const d=ts.toDate?ts.toDate():new Date(ts);
