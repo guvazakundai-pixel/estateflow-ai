@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EstateFlow AI — Generate high-converting property listings in seconds</title>
-<meta name="description" content="The AI copywriter for real estate agents. Turn a few bullet points into a professional listing, description, social caption and CTA — in 10 seconds.">
+<title>EstateFlow — Real estate, simplified.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#ffffff;--bg-soft:#f8fafc;--bg-dim:#f1f5f9;
   --border:#e2e8f0;--border-2:#cbd5e1;
   --text:#0f172a;--text-2:#334155;--muted:#64748b;--subtle:#94a3b8;
-  --primary:#1E3A8A;--primary-hover:#172a66;--primary-soft:#eff4ff;--primary-dim:#dbe4ff;
-  --teal:#14B8A6;--teal-hover:#0d9488;--teal-soft:#ecfdf5;
+  --primary:#1E3A8A;--primary-hover:#172a66;--primary-soft:#eff4ff;
+  --teal:#14B8A6;--teal-soft:#ecfdf5;
   --red:#ef4444;--amber:#f59e0b;--green:#10b981;
   --font:'Inter',system-ui,-apple-system,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
-  --radius:6px;--radius-lg:12px;--radius-xl:20px;
+  --radius:8px;--radius-lg:12px;--radius-xl:20px;
   --shadow:0 1px 3px rgba(15,23,42,.04),0 1px 2px rgba(15,23,42,.06);
   --shadow-md:0 4px 12px rgba(15,23,42,.08);
   --shadow-lg:0 20px 50px rgba(30,58,138,.12);
@@ -38,866 +37,696 @@ img{max-width:100%;display:block}
 .mono{font-family:var(--mono)}
 
 /* NAV */
-#nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border)}
+#topnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;letter-spacing:-.02em;cursor:pointer}
-.logo-mark{width:34px;height:34px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.95rem;box-shadow:0 4px 14px rgba(30,58,138,.35)}
+.logo-mark{width:34px;height:34px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.95rem;box-shadow:0 4px 14px rgba(30,58,138,.3)}
 .logo span b{color:var(--primary);font-weight:800}
 .logo span i{color:var(--teal);font-style:normal;font-weight:800}
 .nav-menu{display:flex;align-items:center;gap:28px;flex:1;justify-content:center}
 .nav-menu a{font-size:.88rem;color:var(--text-2);font-weight:500;transition:color .15s;cursor:pointer}
 .nav-menu a:hover{color:var(--primary)}
 .nav-actions{display:flex;align-items:center;gap:10px}
-.usage-pill{background:var(--bg-soft);border:1px solid var(--border);padding:7px 14px;border-radius:100px;font-family:var(--mono);font-size:.76rem;color:var(--text-2);display:flex;align-items:center;gap:6px}
-.usage-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
-.usage-pill.warn .dot{background:var(--amber)}
-.usage-pill.full .dot{background:var(--red)}
 .btn{padding:10px 20px;border-radius:100px;font-weight:600;font-size:.88rem;transition:all .18s;display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;cursor:pointer;white-space:nowrap}
 .btn svg{width:14px;height:14px}
-.btn-primary{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(30,58,138,.3)}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(30,58,138,.28)}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(30,58,138,.4)}
-.btn-ghost{background:transparent;color:var(--text-2)}
-.btn-ghost:hover{color:var(--primary);background:var(--primary-soft)}
 .btn-outline{background:#fff;border-color:var(--border-2);color:var(--text)}
 .btn-outline:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-soft)}
+.btn-ghost{background:transparent;color:var(--text-2)}
+.btn-ghost:hover{color:var(--primary);background:var(--primary-soft)}
+.btn-lg{padding:14px 28px;font-size:.95rem}
+.btn-dark{background:#0f172a;color:#fff}
+.btn-dark:hover{background:#1e293b}
+.btn-danger{background:#fef2f2;color:var(--red);border-color:#fecaca}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-success{background:#f0fdf4;color:var(--green);border-color:#bbf7d0}
 
-/* HERO */
-#hero{position:relative;padding:60px 28px 40px;overflow:hidden}
-#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--primary-soft),transparent 70%);pointer-events:none;z-index:0}
-.hero-inner{position:relative;z-index:1;max-width:1000px;margin:0 auto;text-align:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:.78rem;color:var(--text-2);font-weight:500;margin-bottom:24px;box-shadow:var(--shadow)}
-.hero-tag .spark{width:14px;height:14px;color:var(--teal)}
-.hero-title{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin-bottom:20px}
-.hero-title .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{font-size:1.08rem;color:var(--muted);max-width:620px;margin:0 auto 36px;line-height:1.6}
-.hero-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
-.hero-proof{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
-.hero-proof span{display:flex;align-items:center;gap:6px}
-.hero-proof svg{width:14px;height:14px;color:var(--teal)}
+/* User menu */
+.user-pill{display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;background:var(--bg-soft);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .15s;position:relative}
+.user-pill:hover{background:var(--bg-dim)}
+.user-pill .avatar{width:28px;height:28px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;overflow:hidden}
+.user-pill .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.user-pill .info{display:flex;flex-direction:column;line-height:1.1;text-align:left}
+.user-pill .info .nm{font-size:.82rem;font-weight:600}
+.user-pill .info .rl{font-size:.68rem;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.user-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);min-width:220px;padding:6px;display:none;z-index:100}
+.user-pill.open .user-menu{display:block}
+.user-menu-item{padding:10px 14px;border-radius:var(--radius);font-size:.88rem;color:var(--text-2);cursor:pointer;transition:all .12s;display:flex;align-items:center;gap:10px}
+.user-menu-item:hover{background:var(--bg-soft);color:var(--text)}
+.user-menu-item svg{width:14px;height:14px}
+.user-menu-item.danger{color:var(--red)}
+.user-menu-item.danger:hover{background:#fef2f2}
+.user-menu-divider{height:1px;background:var(--border);margin:4px 0}
 
-/* TOOL */
-#tool{max-width:1280px;margin:0 auto;padding:40px 28px 80px}
-.tool-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);overflow:hidden}
-.tool-head{padding:24px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:linear-gradient(180deg,var(--bg-soft),#fff)}
-.tool-head .left h2{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
-.tool-head .left p{font-size:.82rem;color:var(--muted);margin-top:2px}
-.tool-head .right{display:flex;gap:8px;align-items:center}
-.tool-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:1px;background:var(--border);min-height:560px}
-.tool-input{background:#fff;padding:24px 28px;display:flex;flex-direction:column;gap:14px;overflow-y:auto}
-.tool-output{background:var(--bg-soft);padding:24px 28px;overflow-y:auto;position:relative}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700}
-.field input,.field select,.field textarea{width:100%;background:#fff;border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius-lg);font-size:.92rem;transition:all .15s;outline:none;font-family:inherit}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
-.field textarea{resize:vertical;min-height:90px;line-height:1.5}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.field-row.three{grid-template-columns:1fr 1fr 1fr}
-.field-hint{font-size:.72rem;color:var(--muted);margin-top:2px}
-.amenity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-top:4px}
-.amenity{display:flex;align-items:center;gap:7px;padding:7px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all .15s;user-select:none}
-.amenity:hover{border-color:var(--border-2)}
-.amenity.on{background:var(--primary-soft);border-color:var(--primary);color:var(--primary);font-weight:600}
-.amenity input{display:none}
-.amenity .cb{width:14px;height:14px;border:1.5px solid var(--border-2);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.amenity.on .cb{background:var(--primary);border-color:var(--primary)}
-.amenity.on .cb::after{content:'';width:6px;height:8px;border:1.5px solid #fff;border-top:0;border-left:0;transform:rotate(45deg) translateY(-1px)}
-.amenity span{font-size:.82rem}
+/* LANDING */
+.landing-hero{position:relative;padding:80px 28px 60px;overflow:hidden}
+.landing-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--primary-soft),transparent 70%);pointer-events:none;z-index:0}
+.landing-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.landing-tag{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:.78rem;color:var(--text-2);font-weight:500;margin-bottom:24px;box-shadow:var(--shadow)}
+.landing-tag svg{width:14px;height:14px;color:var(--teal)}
+.landing-title{font-size:clamp(2.2rem,5.5vw,4rem);font-weight:800;letter-spacing:-.04em;line-height:1.02;margin-bottom:20px}
+.landing-title .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.landing-desc{font-size:1.1rem;color:var(--muted);max-width:620px;margin:0 auto 36px;line-height:1.6}
+.landing-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
 
-.tool-actions{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
-.btn-generate{flex:1;min-width:180px;background:var(--grad);color:#fff;padding:13px 18px;border-radius:var(--radius-lg);font-weight:600;font-size:.92rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;box-shadow:0 6px 18px rgba(30,58,138,.3)}
-.btn-generate:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 10px 24px rgba(30,58,138,.4)}
-.btn-generate:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.btn-generate svg{width:16px;height:16px}
-.btn-clear{padding:13px 18px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);font-size:.88rem;color:var(--text-2);transition:all .15s}
-.btn-clear:hover{border-color:var(--text-2);color:var(--text)}
+.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:60px auto 0;padding:0 28px}
+.role-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius-xl);padding:32px 28px;transition:all .2s;cursor:pointer;text-align:left;position:relative;overflow:hidden}
+.role-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.role-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);opacity:0;transition:opacity .2s}
+.role-card:hover::before{opacity:1}
+.role-card .ic{width:52px;height:52px;border-radius:14px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.role-card .ic svg{width:24px;height:24px}
+.role-card h3{font-size:1.15rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.role-card p{color:var(--muted);font-size:.9rem;line-height:1.55;margin-bottom:16px}
+.role-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.role-card li{font-size:.85rem;color:var(--text-2);display:flex;align-items:start;gap:8px}
+.role-card li svg{width:14px;height:14px;color:var(--teal);flex-shrink:0;margin-top:3px}
 
-/* OUTPUT */
-.out-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:400px;color:var(--muted);text-align:center;padding:40px 20px}
-.out-placeholder .pop{width:72px;height:72px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:#fff;box-shadow:0 12px 32px rgba(30,58,138,.3)}
-.out-placeholder .pop svg{width:32px;height:32px}
-.out-placeholder h3{color:var(--text);font-weight:700;font-size:1.05rem;margin-bottom:6px}
-.out-placeholder p{font-size:.88rem;max-width:320px;line-height:1.55}
-.loading-box{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:400px;color:var(--muted);padding:40px 20px}
-.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:16px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-box p{font-size:.88rem;font-weight:500}
-.loading-box small{font-size:.76rem;color:var(--subtle);margin-top:6px}
+/* Features */
+.features{max-width:1100px;margin:80px auto 40px;padding:0 28px}
+.section-lead{text-align:center;margin-bottom:40px}
+.section-lead .kicker{font-family:var(--mono);font-size:.76rem;color:var(--teal);text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px}
+.section-lead h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+.section-lead p{color:var(--muted);max-width:520px;margin:0 auto;font-size:.98rem}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.feat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:26px;transition:all .2s}
+.feat-card:hover{border-color:var(--primary);box-shadow:var(--shadow-md)}
+.feat-card .ic{width:40px;height:40px;background:var(--primary-soft);color:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.feat-card .ic svg{width:18px;height:18px}
+.feat-card h4{font-size:1rem;font-weight:700;margin-bottom:6px}
+.feat-card p{font-size:.86rem;color:var(--muted);line-height:1.55}
 
-.out-result{display:flex;flex-direction:column;gap:16px}
-.out-block{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow .2s}
-.out-block:hover{box-shadow:var(--shadow-md)}
-.out-head{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg-soft)}
-.out-label{font-family:var(--mono);font-size:.7rem;color:var(--primary);text-transform:uppercase;letter-spacing:.1em;font-weight:700;display:flex;align-items:center;gap:6px}
-.out-label svg{width:12px;height:12px}
-.copy-btn{padding:5px 11px;border-radius:100px;background:#fff;border:1px solid var(--border);font-size:.74rem;font-weight:600;color:var(--text-2);display:inline-flex;align-items:center;gap:5px;transition:all .15s}
-.copy-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-soft)}
-.copy-btn svg{width:12px;height:12px}
-.copy-btn.copied{background:var(--teal);border-color:var(--teal);color:#fff}
-.out-body{padding:14px 16px;font-size:.92rem;line-height:1.65;color:var(--text);white-space:pre-wrap;word-wrap:break-word}
-.out-body.title-body{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
-.out-body ul{margin:0;padding-left:20px}
-.out-body li{margin:3px 0}
-
-.out-footer{display:flex;gap:8px;padding-top:12px;border-top:1px solid var(--border);margin-top:8px;flex-wrap:wrap}
-.btn-copy-all{flex:1;min-width:160px;background:var(--text);color:#fff;padding:11px 16px;border-radius:var(--radius-lg);font-weight:600;font-size:.86rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:all .15s}
-.btn-copy-all:hover{background:var(--primary)}
-.btn-copy-all svg{width:14px;height:14px}
-.btn-regen{background:#fff;border:1px solid var(--border);padding:11px 16px;border-radius:var(--radius-lg);font-weight:600;font-size:.86rem;color:var(--text);transition:all .15s;display:inline-flex;align-items:center;gap:8px}
-.btn-regen:hover{border-color:var(--primary);color:var(--primary)}
-.btn-regen svg{width:13px;height:13px}
-
-/* ERROR / LIMIT BOX */
-.limit-box{background:linear-gradient(135deg,#fef3c7,#fff);border:1px solid #fde68a;border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;display:flex;gap:14px;align-items:start}
-.limit-box .ic{width:38px;height:38px;background:var(--amber);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.limit-box .ic svg{width:18px;height:18px}
-.limit-box h4{font-weight:700;font-size:.95rem;margin-bottom:4px}
-.limit-box p{font-size:.85rem;color:var(--text-2);margin-bottom:10px}
-.limit-box a{color:var(--primary);font-weight:600;cursor:pointer}
-.err-box{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:14px 16px;border-radius:var(--radius-lg);font-size:.88rem;margin-bottom:14px}
-
-/* FEATURES */
-#features{max-width:1280px;margin:0 auto;padding:80px 28px 40px}
-.section-lead{text-align:center;margin-bottom:48px}
-.section-lead .kicker{font-family:var(--mono);font-size:.78rem;color:var(--teal);text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px}
-.section-lead h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px}
-.section-lead p{color:var(--muted);font-size:1.02rem;max-width:560px;margin:0 auto}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.feat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px;transition:all .18s}
-.feat-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:var(--shadow-md)}
-.feat-card .ic{width:44px;height:44px;background:var(--primary-soft);color:var(--primary);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.feat-card .ic svg{width:20px;height:20px}
-.feat-card h3{font-size:1.05rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
-.feat-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
-
-/* HOW IT WORKS */
-#how{max-width:1280px;margin:0 auto;padding:60px 28px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:40px}
-.step{position:relative;padding:32px 28px;background:linear-gradient(180deg,#fff,var(--bg-soft));border:1px solid var(--border);border-radius:var(--radius-xl)}
-.step-num{width:36px;height:36px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:.95rem;margin-bottom:18px;box-shadow:0 6px 16px rgba(30,58,138,.35)}
-.step h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
-.step p{font-size:.9rem;color:var(--muted);line-height:1.6}
-
-/* PRICING */
-#pricing{max-width:1100px;margin:0 auto;padding:80px 28px}
-.plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
-.plan{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:36px 32px;position:relative;transition:all .2s}
-.plan:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
-.plan.pro{border-color:var(--primary);background:linear-gradient(180deg,#fff,var(--primary-soft));box-shadow:var(--shadow-lg)}
-.plan .ribbon{position:absolute;top:-12px;right:20px;background:var(--grad);color:#fff;padding:5px 14px;border-radius:100px;font-size:.72rem;font-weight:700;font-family:var(--mono);letter-spacing:.06em;box-shadow:0 6px 14px rgba(30,58,138,.3)}
-.plan h3{font-size:1.2rem;font-weight:700;margin-bottom:4px;letter-spacing:-.01em}
-.plan .tagline{color:var(--muted);font-size:.88rem;margin-bottom:22px}
-.plan .price{display:flex;align-items:baseline;gap:4px;margin-bottom:22px}
-.plan .price .big{font-size:3rem;font-weight:800;letter-spacing:-.03em;line-height:1}
-.plan .price .per{color:var(--muted);font-size:.92rem;margin-left:4px}
-.plan ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
-.plan li{font-size:.92rem;color:var(--text-2);display:flex;align-items:start;gap:10px}
-.plan li svg{width:16px;height:16px;color:var(--teal);flex-shrink:0;margin-top:2px}
-.plan li.off{color:var(--subtle)}
-.plan li.off svg{color:var(--subtle)}
-
-/* HISTORY */
-#history-section{max-width:1280px;margin:0 auto;padding:40px 28px}
-.hist-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
-.hist-head h3{font-size:1.1rem;font-weight:700}
-.hist-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.hist-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;cursor:pointer;transition:all .15s}
-.hist-item:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow)}
-.hist-item .hi-title{font-weight:700;font-size:.92rem;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.hist-item .hi-meta{font-family:var(--mono);font-size:.7rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
-.hist-item .hi-meta span{padding:2px 7px;background:var(--bg-soft);border-radius:100px}
-
-/* FOOTER */
-#footer{background:var(--text);color:#fff;padding:60px 28px 28px;margin-top:80px}
-.foot-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.foot-brand .logo{color:#fff;margin-bottom:14px}
+/* Footer */
+#footer{background:#0f172a;color:#fff;padding:48px 28px 24px;margin-top:80px}
+.foot-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:32px}
+.foot-brand .logo{color:#fff;margin-bottom:12px}
 .foot-brand .logo span b{color:#fff}
-.foot-brand .logo span i{color:var(--teal)}
-.foot-brand p{color:rgba(255,255,255,.6);font-size:.88rem;line-height:1.65;max-width:300px}
-.foot-col h4{font-family:var(--mono);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:16px;color:rgba(255,255,255,.5)}
+.foot-brand p{color:rgba(255,255,255,.55);font-size:.88rem;line-height:1.65;max-width:320px}
+.foot-col h4{font-family:var(--mono);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px;color:rgba(255,255,255,.5)}
 .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.foot-col li{color:rgba(255,255,255,.75);font-size:.88rem;cursor:pointer;transition:color .15s}
+.foot-col li{color:rgba(255,255,255,.72);font-size:.88rem;cursor:pointer;transition:color .15s}
 .foot-col li:hover{color:var(--teal)}
-.foot-bottom{max-width:1280px;margin:0 auto;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.8rem;color:rgba(255,255,255,.45);font-family:var(--mono)}
+.foot-bottom{max-width:1280px;margin:0 auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.8rem;color:rgba(255,255,255,.45);font-family:var(--mono)}
 
-/* MODAL */
-.modal{position:fixed;inset:0;z-index:200;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
-.modal.open{display:flex}
-.modal-box{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:520px;padding:32px;position:relative;box-shadow:var(--shadow-lg)}
+/* Modals */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(15,23,42,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.modal.open{display:flex;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:480px;padding:32px;position:relative;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.2,.8,.2,1)}
+.modal-box.wide{max-width:720px}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
 .modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:var(--bg-soft);color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s}
-.modal-close:hover{background:var(--text);color:#fff}
+.modal-close:hover{background:#0f172a;color:#fff}
 .modal-close svg{width:14px;height:14px}
 .modal h3{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
-.modal p{color:var(--muted);margin-bottom:20px;font-size:.92rem}
+.modal .lede{color:var(--muted);margin-bottom:20px;font-size:.92rem}
 
-/* TOAST */
-#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:#fff;padding:12px 20px;border-radius:100px;font-size:.86rem;font-weight:500;z-index:9999;opacity:0;transition:all .22s;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg)}
+/* Google button */
+.google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;background:#fff;border:1px solid var(--border-2);color:var(--text);border-radius:var(--radius-lg);font-weight:600;font-size:.94rem;cursor:pointer;transition:all .15s}
+.google-btn:hover{border-color:var(--text-2);background:var(--bg-soft)}
+.google-btn svg{width:18px;height:18px}
+
+/* Fields */
+.field{margin-bottom:14px}
+.field label{display:block;font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;background:#fff;border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--radius-lg);font-size:.92rem;transition:all .15s;outline:none;font-family:inherit}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+.field textarea{resize:vertical;min-height:90px}
+.field-hint{font-size:.74rem;color:var(--muted);margin-top:4px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Role pick inside modal */
+.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.role-pick-item{padding:20px 18px;background:#fff;border:2px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all .15s;text-align:left}
+.role-pick-item:hover{border-color:var(--border-2)}
+.role-pick-item.selected{border-color:var(--primary);background:var(--primary-soft)}
+.role-pick-item .ic{width:36px;height:36px;border-radius:10px;background:var(--bg-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.role-pick-item .ic svg{width:16px;height:16px}
+.role-pick-item h4{font-size:.95rem;font-weight:700;margin-bottom:2px}
+.role-pick-item p{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+/* Toast */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:#0f172a;color:#fff;padding:12px 20px;border-radius:100px;font-size:.86rem;font-weight:500;z-index:9999;opacity:0;transition:all .22s;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.success{background:var(--teal)}
 #toast.error{background:var(--red)}
 #toast svg{width:14px;height:14px}
 
-/* RESPONSIVE */
-@media(max-width:900px){
+/* Loading */
+.loader{display:flex;align-items:center;justify-content:center;min-height:60vh;flex-direction:column;gap:16px;color:var(--muted)}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Dashboard layouts */
+.dash-wrap{max-width:1280px;margin:0 auto;padding:32px 28px;min-height:calc(100vh - 64px)}
+.dash-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px}
+.dash-head h1{font-size:1.6rem;font-weight:800;letter-spacing:-.02em}
+.dash-head p{color:var(--muted);font-size:.92rem;margin-top:4px}
+.dash-actions{display:flex;gap:8px}
+
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.stat-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:20px 22px}
+.stat-box .n{font-size:1.8rem;font-weight:800;letter-spacing:-.02em}
+.stat-box .l{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;font-weight:600;font-family:var(--mono)}
+
+.empty-state{text-align:center;padding:60px 24px;color:var(--muted);background:var(--bg-soft);border:1px dashed var(--border);border-radius:var(--radius-xl)}
+.empty-state .big{font-size:2.5rem;margin-bottom:12px}
+.empty-state h3{color:var(--text);font-weight:700;font-size:1.1rem;margin-bottom:6px}
+.empty-state p{max-width:360px;margin:0 auto 18px;font-size:.9rem;line-height:1.55}
+
+/* Admin tag */
+.pending-banner{background:#fef3c7;border:1px solid #fde68a;color:#92400e;padding:12px 18px;border-radius:var(--radius-lg);font-size:.88rem;display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.pending-banner svg{width:18px;height:18px;flex-shrink:0}
+.pending-banner b{font-weight:700}
+
+/* Responsive */
+@media(max-width:820px){
   .nav-menu{display:none}
-  .tool-layout{grid-template-columns:1fr}
-  .plans{grid-template-columns:1fr}
-  .foot-inner{grid-template-columns:1fr 1fr;gap:28px}
-  .field-row.three{grid-template-columns:1fr 1fr}
-}
-@media(max-width:560px){
-  .nav-inner{padding:0 16px;height:58px}
-  #hero{padding:36px 16px 24px}
-  #tool,#features,#how,#pricing,#history-section{padding-left:16px;padding-right:16px}
-  .tool-head,.tool-input,.tool-output{padding:18px 20px}
-  .plan{padding:26px 22px}
+  .role-cards{grid-template-columns:1fr}
+  .role-pick{grid-template-columns:1fr}
   .foot-inner{grid-template-columns:1fr;gap:24px}
-  .field-row,.field-row.three{grid-template-columns:1fr}
-  .usage-pill{display:none}
+  .field-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .nav-inner{padding:0 16px;height:58px}
+  .landing-hero{padding:48px 20px 36px}
+  .modal-box{padding:24px}
+  .user-pill .info{display:none}
 }
 </style>
 </head>
 <body>
 
-<nav id="nav">
+<!-- Loading screen -->
+<div id="boot" class="loader">
+  <div class="spinner"></div>
+  <p>Loading EstateFlow...</p>
+</div>
+
+<!-- Shell nav (shown once loaded) -->
+<nav id="topnav" style="display:none">
   <div class="nav-inner">
-    <a class="logo" onclick="scrollT('hero')">
+    <a class="logo" onclick="goHome()">
       <div class="logo-mark">EF</div>
-      <span><b>Estate</b><i>Flow</i> <span style="color:var(--muted);font-weight:500;font-size:.78rem;font-family:var(--mono)">AI</span></span>
+      <span><b>Estate</b><i>Flow</i></span>
     </a>
-    <div class="nav-menu">
-      <a onclick="scrollT('tool')">Generator</a>
-      <a onclick="scrollT('features')">Features</a>
-      <a onclick="scrollT('how')">How it works</a>
-      <a onclick="scrollT('pricing')">Pricing</a>
-    </div>
-    <div class="nav-actions">
-      <div class="usage-pill" id="usage-pill"><span class="dot"></span><span id="usage-text">0 / 5 today</span></div>
-      <button class="btn btn-ghost" onclick="openKeyModal()" title="API Key" style="padding:8px 12px">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-      </button>
-      <button class="btn btn-primary" onclick="scrollT('pricing')">Upgrade</button>
-    </div>
+    <div class="nav-menu" id="main-menu"></div>
+    <div class="nav-actions" id="nav-actions"></div>
   </div>
 </nav>
 
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-tag">
-      <svg class="spark" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>
-      AI copywriter for real estate agents
-    </div>
-    <h1 class="hero-title">Turn bullet points into<br><span class="grad-text">high-converting listings</span></h1>
-    <p class="hero-desc">Stop staring at a blank page. Type a few details, get a polished listing title, description, feature list, social caption, and CTA — ready to post in 10 seconds.</p>
-    <div class="hero-cta">
-      <button class="btn btn-primary" onclick="scrollT('tool')">
-        Try it free
-        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </button>
-      <button class="btn btn-outline" onclick="scrollT('how')">How it works</button>
-    </div>
-    <div class="hero-proof">
-      <span><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> 5 free generations per day</span>
-      <span><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> No signup required</span>
-      <span><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Ready in seconds</span>
-    </div>
-  </div>
-</section>
-
-<section id="tool">
-  <div class="tool-box">
-    <div class="tool-head">
-      <div class="left">
-        <h2>Generate a listing</h2>
-        <p>Fill in a few details — the AI handles the rest.</p>
+<!-- Public landing -->
+<section id="view-landing" style="display:none">
+  <div class="landing-hero">
+    <div class="landing-inner">
+      <div class="landing-tag">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>
+        Zimbabwe's AI-powered property marketplace
       </div>
-      <div class="right">
-        <button class="btn btn-ghost" onclick="loadExample()" title="Auto-fill example">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          Example
+      <h1 class="landing-title">Property search,<br><span class="grad-text">finally simple.</span></h1>
+      <p class="landing-desc">Browse verified listings in Zimbabwe, get AI-powered affordability checks, and connect directly with property consultants. Or list your property and let AI write the perfect listing.</p>
+      <div class="landing-cta">
+        <button class="btn btn-primary btn-lg" onclick="signIn()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.35 11.1h-9.18v2.83h5.27c-.24 1.3-1.88 3.82-5.27 3.82-3.17 0-5.76-2.63-5.76-5.87 0-3.24 2.59-5.87 5.76-5.87 1.8 0 3.02.78 3.71 1.44l2.53-2.45C16.84 3.5 14.69 2.5 12.17 2.5c-5.31 0-9.6 4.3-9.6 9.6s4.29 9.6 9.6 9.6c5.54 0 9.21-3.89 9.21-9.37 0-.62-.07-1.1-.17-1.56z"/></svg>
+          Sign in with Google to start
         </button>
       </div>
     </div>
-    <div class="tool-layout">
-      <!-- INPUT -->
-      <div class="tool-input">
-        <div class="field-row">
-          <div class="field">
-            <label>Listing Type</label>
-            <select id="f-listing">
-              <option value="For Sale">For Sale</option>
-              <option value="For Rent">For Rent</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Property Type</label>
-            <select id="f-type">
-              <option>House</option><option>Apartment</option><option>Townhouse</option>
-              <option>Cottage</option><option>Land / Stand</option><option>Commercial</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row three">
-          <div class="field">
-            <label>Bedrooms</label>
-            <input id="f-beds" type="number" placeholder="3" min="0">
-          </div>
-          <div class="field">
-            <label>Bathrooms</label>
-            <input id="f-baths" type="number" placeholder="2" min="0">
-          </div>
-          <div class="field">
-            <label>Price (USD)</label>
-            <input id="f-price" type="number" placeholder="120000">
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Suburb / Area</label>
-            <input id="f-area" placeholder="Borrowdale" list="areas">
-            <datalist id="areas"><option>Borrowdale</option><option>Avondale</option><option>Highlands</option><option>Mount Pleasant</option><option>Greendale</option><option>Newlands</option><option>Westgate</option><option>Ballantyne Park</option><option>Glen Lorne</option><option>Chisipite</option><option>Milton Park</option><option>Hatfield</option><option>Bulawayo</option><option>Victoria Falls</option></datalist>
-          </div>
-          <div class="field">
-            <label>City</label>
-            <input id="f-city" value="Harare" list="cities">
-            <datalist id="cities"><option>Harare</option><option>Bulawayo</option><option>Mutare</option><option>Gweru</option><option>Victoria Falls</option><option>Kariba</option></datalist>
-          </div>
-        </div>
-        <div class="field">
-          <label>Plot / Floor Size <span style="font-weight:400;color:var(--subtle);text-transform:none;letter-spacing:normal">(optional)</span></label>
-          <input id="f-size" placeholder="e.g. 2000m² stand, 250m² under roof">
-        </div>
-        <div class="field">
-          <label>Amenities</label>
-          <div class="amenity-grid" id="amenity-grid"></div>
-        </div>
-        <div class="field">
-          <label>Extra Details <span style="font-weight:400;color:var(--subtle);text-transform:none;letter-spacing:normal">(optional)</span></label>
-          <textarea id="f-extra" placeholder="Anything else worth mentioning — nearby schools, recent renovations, special features..."></textarea>
-        </div>
-        <div class="tool-actions">
-          <button class="btn-generate" id="gen-btn" onclick="generate()">
-            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>
-            Generate Listing
-          </button>
-          <button class="btn-clear" onclick="clearForm()">Clear</button>
-        </div>
+  </div>
+
+  <div class="role-cards">
+    <div class="role-card" onclick="signIn()">
+      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
+      <h3>I'm looking to buy or rent</h3>
+      <p>Find your next home with AI-powered search and instant affordability checks.</p>
+      <ul>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Browse verified listings</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> AI chat: "3-bed under $150k in Borrowdale"</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Instant affordability calculator</li>
+        <li><svg fill="none" stroke="currentColor" stroke-with="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Save favorites, share to WhatsApp</li>
+      </ul>
+      <button class="btn btn-outline">Continue as Buyer →</button>
+    </div>
+    <div class="role-card" onclick="signIn()">
+      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 10H2M6 15h2M12 15h6"/></svg></div>
+      <h3>I'm a property consultant</h3>
+      <p>Publish listings faster with AI-generated descriptions. Turn browsers into buyers.</p>
+      <ul>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> AI writes your listings in seconds</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Manage all your properties in one place</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> See inquiries and listing analytics</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Verified badge (EACZ)</li>
+      </ul>
+      <button class="btn btn-outline">Continue as Consultant →</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="section-lead">
+      <div class="kicker">Why EstateFlow</div>
+      <h2>Built for Zimbabwe's market.</h2>
+      <p>From Borrowdale to Bulawayo, borehole checks to ZESA backup — we speak your market's language.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h4>Zimbabwe-first</h4><p>All suburbs, amenities and pricing tuned for the local market.</p>
       </div>
-      <!-- OUTPUT -->
-      <div class="tool-output" id="tool-output">
-        <div class="out-placeholder">
-          <div class="pop"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg></div>
-          <h3>Your listing will appear here</h3>
-          <p>Fill in the details on the left and click <b>Generate Listing</b>. The AI crafts a title, description, features, social caption, and call-to-action.</p>
-        </div>
+      <div class="feat-card">
+        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h4>Verified consultants</h4><p>EACZ-registered consultants get a verified badge for extra trust.</p>
+      </div>
+      <div class="feat-card">
+        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h4>Instant listings</h4><p>AI writes your listing description in 10 seconds.</p>
+      </div>
+      <div class="feat-card">
+        <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <h4>Affordability built in</h4><p>Every listing shows monthly cost + deposit needed.</p>
       </div>
     </div>
   </div>
+
+  <footer id="footer">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <a class="logo"><div class="logo-mark">EF</div><span><b>Estate</b><i>Flow</i></span></a>
+        <p>Zimbabwe's AI-powered property marketplace. Find your next home or list with ease.</p>
+      </div>
+      <div class="foot-col"><h4>Product</h4><ul>
+        <li>Browse listings</li><li>List a property</li><li>For consultants</li>
+      </ul></div>
+      <div class="foot-col"><h4>Company</h4><ul>
+        <li>About</li><li>Contact</li><li>Privacy</li><li>Terms</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr">2026</span> EstateFlow · Built by KundaiTech</span>
+      <span>v1.0</span>
+    </div>
+  </footer>
 </section>
 
-<section id="history-section" style="display:none">
-  <div class="hist-head">
-    <h3>Recent generations</h3>
-    <button class="btn btn-ghost" onclick="clearHistory()">Clear history</button>
-  </div>
-  <div class="hist-list" id="hist-list"></div>
-</section>
-
-<section id="features">
-  <div class="section-lead">
-    <div class="kicker">Why EstateFlow AI</div>
-    <h2>Listings that sell, written<br>before you finish your coffee.</h2>
-    <p>Built for agents who are tired of staring at a blank Word document every time they list a property.</p>
-  </div>
-  <div class="feat-grid">
-    <div class="feat-card">
-      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-      <h3>10-second listings</h3>
-      <p>Type the basics, get a polished, professional listing instantly. No more blank-page paralysis.</p>
+<!-- Buyer view -->
+<section id="view-buyer" style="display:none">
+  <div class="dash-wrap">
+    <div class="dash-head">
+      <div>
+        <h1>Find your next home.</h1>
+        <p>Browse verified listings from trusted property consultants.</p>
+      </div>
+      <div class="dash-actions">
+        <button class="btn btn-outline" onclick="toast('Coming soon in Part 2','')">🔍 Search</button>
+      </div>
     </div>
-    <div class="feat-card">
-      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-      <h3>Zimbabwe-ready</h3>
-      <p>Trained for local context — borehole, durawall, ZESA, solar, Harare suburbs. Speaks your market.</p>
-    </div>
-    <div class="feat-card">
-      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
-      <h3>5 outputs, one click</h3>
-      <p>Title, description, feature bullets, social caption, and CTA — all generated together, ready to paste.</p>
-    </div>
-    <div class="feat-card">
-      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
-      <h3>SEO-aware</h3>
-      <p>Includes location keywords, property type, and price points so your listings get found on Google and property portals.</p>
-    </div>
-    <div class="feat-card">
-      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div>
-      <h3>One-click copy</h3>
-      <p>Copy each section or grab everything at once. Paste into Property24, Facebook, WhatsApp status — done.</p>
-    </div>
-    <div class="feat-card">
-      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <h3>Honest output</h3>
-      <p>Persuasive but realistic. No fake amenities, no hallucinated features — your credibility stays intact.</p>
+    <div class="empty-state">
+      <div class="big">🏡</div>
+      <h3>Listings coming soon</h3>
+      <p>We're just getting started. Check back shortly — property consultants are adding their properties now.</p>
     </div>
   </div>
 </section>
 
-<section id="how">
-  <div class="section-lead">
-    <div class="kicker">How it works</div>
-    <h2>From bullets to brochure<br>in three steps.</h2>
-  </div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Enter the basics</h3>
-      <p>Beds, baths, price, suburb, and a few amenities. That's it. Under 30 seconds of typing.</p>
+<!-- Consultant view -->
+<section id="view-consultant" style="display:none">
+  <div class="dash-wrap">
+    <div id="consultant-pending" style="display:none"></div>
+    <div class="dash-head">
+      <div>
+        <h1>Your Dashboard</h1>
+        <p id="consultant-welcome">Manage your listings and track inquiries.</p>
+      </div>
+      <div class="dash-actions">
+        <button class="btn btn-primary" onclick="toast('Coming in Part 2: AI-powered listing builder','')">
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          New Listing
+        </button>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>AI writes the listing</h3>
-      <p>The model crafts a compelling title, a full description, feature bullets, a social caption, and a call-to-action — all tuned for property buyers.</p>
+    <div class="stat-row">
+      <div class="stat-box"><div class="n">0</div><div class="l">Active Listings</div></div>
+      <div class="stat-box"><div class="n">0</div><div class="l">Total Views</div></div>
+      <div class="stat-box"><div class="n">0</div><div class="l">New Inquiries</div></div>
+      <div class="stat-box"><div class="n">0</div><div class="l">Favorited By Buyers</div></div>
     </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Copy &amp; post</h3>
-      <p>One-click copy to Property24, Facebook, WhatsApp, or your own site. Then go show the house.</p>
-    </div>
-  </div>
-</section>
-
-<section id="pricing">
-  <div class="section-lead">
-    <div class="kicker">Pricing</div>
-    <h2>Start free.<br>Upgrade when you're busy.</h2>
-    <p>No credit card required. Cancel anytime.</p>
-  </div>
-  <div class="plans">
-    <div class="plan">
-      <h3>Free</h3>
-      <p class="tagline">For occasional listings</p>
-      <div class="price"><span class="big">$0</span><span class="per">/ month</span></div>
-      <ul>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> 5 listings per day</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> All 5 output formats</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Copy &amp; paste anywhere</li>
-        <li class="off"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg> Unlimited generations</li>
-        <li class="off"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg> Premium AI model</li>
-      </ul>
-      <button class="btn btn-outline" style="width:100%" onclick="scrollT('tool')">Start generating</button>
-    </div>
-    <div class="plan pro">
-      <div class="ribbon">MOST POPULAR</div>
-      <h3>Pro</h3>
-      <p class="tagline">For serious agents</p>
-      <div class="price"><span class="big">$20</span><span class="per">/ month</span></div>
-      <ul>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> <b>Unlimited</b> listings</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Premium AI model (better copy)</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Export to PDF / CSV / JSON</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Priority WhatsApp support</li>
-        <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Early access to new features</li>
-      </ul>
-      <button class="btn btn-primary" style="width:100%" onclick="upgradeWA()">Upgrade to Pro</button>
+    <div class="empty-state">
+      <div class="big">📋</div>
+      <h3>No listings yet</h3>
+      <p>Publish your first property to start reaching buyers. Our AI will help you write the perfect listing description.</p>
+      <button class="btn btn-primary" onclick="toast('Coming in Part 2: AI-powered listing builder','')">
+        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        Create Your First Listing
+      </button>
     </div>
   </div>
 </section>
 
-<footer id="footer">
-  <div class="foot-inner">
-    <div class="foot-brand">
-      <a class="logo">
-        <div class="logo-mark">EF</div>
-        <span><b>Estate</b><i>Flow</i> AI</span>
-      </a>
-      <p>The AI copywriter built for Zimbabwean real estate agents. Listings that sell, written in seconds.</p>
+<!-- Admin view (locked to guvazab@gmail.com) -->
+<section id="view-admin" style="display:none">
+  <div class="dash-wrap">
+    <div class="dash-head">
+      <div>
+        <h1>Admin Console</h1>
+        <p>Platform management — users, listings, leads.</p>
+      </div>
+      <div class="dash-actions">
+        <button class="btn btn-outline" onclick="goTo('buyer')">View as Buyer</button>
+        <button class="btn btn-outline" onclick="goTo('consultant')">View as Consultant</button>
+      </div>
     </div>
-    <div class="foot-col"><h4>Product</h4><ul>
-      <li onclick="scrollT('tool')">Generator</li>
-      <li onclick="scrollT('features')">Features</li>
-      <li onclick="scrollT('pricing')">Pricing</li>
-    </ul></div>
-    <div class="foot-col"><h4>Company</h4><ul>
-      <li>About</li><li>Contact</li><li>Roadmap</li>
-    </ul></div>
-    <div class="foot-col"><h4>Legal</h4><ul>
-      <li>Privacy</li><li>Terms</li>
-    </ul></div>
+    <div class="stat-row" id="admin-stats"></div>
+    <div class="empty-state">
+      <div class="big">⚙️</div>
+      <h3>User management coming in Part 3</h3>
+      <p>Approve new consultants, suspend accounts, view all listings and leads, platform analytics.</p>
+    </div>
   </div>
-  <div class="foot-bottom">
-    <span>© <span id="yr">2025</span> EstateFlow AI · Built by KundaiTech</span>
-    <span>v1.0</span>
+</section>
+
+<!-- Sign-in modal -->
+<div class="modal" id="signin-modal" onclick="if(event.target===this)closeModal('signin-modal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('signin-modal')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h3>Sign in to EstateFlow</h3>
+    <p class="lede">One-tap sign-in with your Google account. No passwords to remember.</p>
+    <button class="google-btn" onclick="doGoogleSignIn()">
+      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+    <p class="field-hint" style="text-align:center;margin-top:14px">By signing in you agree to our Terms and Privacy Policy.</p>
   </div>
-</footer>
+</div>
+
+<!-- Onboarding: Role + phone capture -->
+<div class="modal" id="onboard-modal">
+  <div class="modal-box wide">
+    <h3 id="onboard-title">Welcome to EstateFlow! 👋</h3>
+    <p class="lede">Tell us a bit about you so we can set up your account.</p>
+
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px">I am a...</label>
+      <div class="role-pick">
+        <div class="role-pick-item" data-role="buyer" onclick="pickRole('buyer')">
+          <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
+          <h4>Buyer / Renter</h4>
+          <p>I'm looking to buy or rent a property</p>
+        </div>
+        <div class="role-pick-item" data-role="consultant" onclick="pickRole('consultant')">
+          <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 10H2M6 15h2M12 15h6"/></svg></div>
+          <h4>Property Consultant</h4>
+          <p>I list and manage properties</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Full Name *</label>
+      <input id="ob-name" placeholder="Your full name">
+    </div>
+    <div class="field">
+      <label>Phone Number * (WhatsApp-enabled)</label>
+      <input id="ob-phone" placeholder="+263 77 123 4567">
+      <div class="field-hint">Buyers use this to contact you about properties.</div>
+    </div>
+
+    <div id="ob-consultant-fields" style="display:none">
+      <div class="field-grid">
+        <div class="field">
+          <label>Agency / Company</label>
+          <input id="ob-agency" placeholder="Optional">
+        </div>
+        <div class="field">
+          <label>EACZ Number</label>
+          <input id="ob-eacz" placeholder="Optional — adds verified badge">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="completeOnboarding()">
+      Complete setup
+      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
 
 <div id="toast"></div>
 
-<div class="modal" id="upgrade-modal" onclick="if(event.target===this)closeModal('upgrade-modal')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('upgrade-modal')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-    <h3>Upgrade to Pro</h3>
-    <p>Get unlimited generations, premium AI, and export tools for $20/month. Send a WhatsApp to get started.</p>
-    <button class="btn btn-primary" style="width:100%" onclick="upgradeWA()">
-      Chat on WhatsApp
-      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </button>
-  </div>
-</div>
-
-<div class="modal" id="key-modal" onclick="if(event.target===this)closeModal('key-modal')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('key-modal')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-    <h3>Connect your AI</h3>
-    <p>EstateFlow uses <b>Groq</b> (free, fast). Get a free key at <a href="https://console.groq.com/keys" target="_blank" style="color:var(--primary);font-weight:600">console.groq.com/keys</a> — takes 30 seconds, no credit card.</p>
-    <div class="field">
-      <label>Groq API Key</label>
-      <input type="password" id="key-input" placeholder="gsk_..." style="font-family:var(--mono);font-size:.85rem">
-      <div class="field-hint">Stored only in your browser. Never sent to our servers.</div>
-    </div>
-    <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="saveKey()">
-      Save &amp; Continue
-      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </button>
-  </div>
-</div>
-
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
-/* ============== CONFIG ============== */
-const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-function getKey(){return localStorage.getItem('ef_groq_key')||''}
-function setKey(k){localStorage.setItem('ef_groq_key',k)}
-const MODEL_FREE = "llama-3.3-70b-versatile";
-const MODEL_PRO  = "llama-3.3-70b-versatile";
-const DAILY_LIMIT = 5;
-const UPGRADE_WA = "263776669049";
+/* ===== CONFIG ===== */
+const firebaseConfig = {
+  apiKey:"AIzaSyCJXvvvgs8qWBRM07CrX3txlBHYk-uVYJ0",
+  authDomain:"laptop-continetal.firebaseapp.com",
+  projectId:"laptop-continetal",
+  storageBucket:"laptop-continetal.firebasestorage.app",
+  messagingSenderId:"859283011492",
+  appId:"1:859283011492:web:de1fab803c9e67b4db3331"
+};
+const ADMIN_EMAILS = ["guvazab@gmail.com"];
+const C_USERS = "ef_users";
+const C_LISTINGS = "ef_listings";
+const C_LEADS = "ef_leads";
 
-const AMENITIES = [
-  "Swimming pool","Garden","Garage","Staff quarters","Borehole","ZESA backup",
-  "Solar power","Durawall","Electric fence","Security guard","Air-conditioning",
-  "Modern kitchen","Fireplace","Balcony","En-suite","Study","Dining room",
-  "Open plan","Tiled floors","Wooden floors","Furnished","Pet-friendly",
-  "Mountain view","Close to schools","Close to shops"
-];
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-const SYSTEM_PROMPT = `You are a high-performing real estate AI assistant for a platform called "EstateFlow AI". Your job is to help real estate agents, property sellers, and marketers create high-converting property listings, descriptions, and marketing content.
+/* ===== STATE ===== */
+let currentUser = null;
+let currentProfile = null;
+let onboardRole = null;
+let currentView = 'landing';
 
-Always follow these rules:
-- Write in a professional, persuasive, and modern tone
-- Focus on benefits, not just features
-- Use clear structure and formatting
-- Make listings emotionally appealing but realistic
-- Optimize for SEO (include keywords like location, property type, price range)
-
-Target audience: Home buyers, real estate investors, renters (if rental).
-
-Style guidelines:
-- Use engaging language ("stunning", "spacious", "prime location")
-- Keep paragraphs short and readable
-- Avoid exaggeration or false claims
-- Highlight location advantages (schools, transport, shopping, safety)
-
-When given property details, generate:
-1. A compelling property title
-2. A detailed listing description (2-3 paragraphs)
-3. Key features (bullet points, 5-8 items)
-4. A short social media caption (with 2-3 relevant hashtags)
-5. A call-to-action (CTA)
-
-If information is missing, intelligently fill gaps using realistic assumptions — but do not hallucinate extreme or specific details you can't know.
-
-You MUST respond in this exact JSON format (no prose before or after, just JSON):
-{
-  "title": "...",
-  "description": "...",
-  "features": ["...", "...", "..."],
-  "social": "...",
-  "cta": "..."
-}`;
-
-/* ============== STATE ============== */
-let selectedAmenities = new Set();
-let lastResult = null;
-let lastInput = null;
-
-/* ============== HELPERS ============== */
+/* ===== HELPERS ===== */
 function $(id){return document.getElementById(id)}
-function scrollT(id){$(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+function show(id){$(id).style.display='block'}
+function hide(id){$(id).style.display='none'}
+function openModal(id){$(id).classList.add('open')}
+function closeModal(id){$(id).classList.remove('open')}
 function esc(s){return (s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function toast(msg,type=''){
   const t=$('toast');
   const ic=type==='success'?'<svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>':type==='error'?'<svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>':'';
   t.innerHTML=ic+esc(msg);t.className='show '+type;
-  clearTimeout(toast._t);toast._t=setTimeout(()=>t.className='',2400);
+  clearTimeout(toast._t);toast._t=setTimeout(()=>t.className='',2600);
 }
+function isAdmin(user){return user && ADMIN_EMAILS.includes((user.email||'').toLowerCase())}
 
-function todayKey(){return 'ef_usage_'+new Date().toISOString().slice(0,10)}
-function getUsage(){return parseInt(localStorage.getItem(todayKey())||'0',10)}
-function bumpUsage(){const v=getUsage()+1;localStorage.setItem(todayKey(),String(v));updateUsagePill();return v}
-function isPro(){return localStorage.getItem('ef_pro')==='1'}
-
-function updateUsagePill(){
-  if(isPro()){$('usage-text').textContent='Pro · Unlimited';$('usage-pill').className='usage-pill';$('usage-pill').querySelector('.dot').style.background='var(--teal)';return}
-  const used=getUsage();const left=Math.max(0,DAILY_LIMIT-used);
-  $('usage-text').textContent=`${used} / ${DAILY_LIMIT} today`;
-  const pill=$('usage-pill');pill.className='usage-pill'+(left===0?' full':left<=1?' warn':'');
-}
-
-/* ============== AMENITIES ============== */
-function renderAmenities(){
-  $('amenity-grid').innerHTML = AMENITIES.map(a=>`
-    <label class="amenity ${selectedAmenities.has(a)?'on':''}">
-      <span class="cb"></span>
-      <input type="checkbox" value="${esc(a)}" ${selectedAmenities.has(a)?'checked':''} onchange="toggleAmenity('${esc(a)}',this.checked)">
-      <span>${esc(a)}</span>
-    </label>`).join('');
-}
-function toggleAmenity(a,on){
-  if(on)selectedAmenities.add(a);else selectedAmenities.delete(a);
-  document.querySelectorAll('.amenity').forEach(el=>{const cb=el.querySelector('input');el.classList.toggle('on',cb.checked)});
-}
-
-/* ============== EXAMPLE / CLEAR ============== */
-function loadExample(){
-  $('f-listing').value='For Sale';$('f-type').value='House';
-  $('f-beds').value=3;$('f-baths').value=2;$('f-price').value=120000;
-  $('f-area').value='Borrowdale';$('f-city').value='Harare';
-  $('f-size').value='2000m² stand, modern open-plan layout';
-  selectedAmenities=new Set(['Swimming pool','Garden','Borehole','Solar power','Durawall','Modern kitchen']);
-  $('f-extra').value='Close to major schools and shopping. Recently renovated bathrooms and kitchen.';
-  renderAmenities();toast('Example loaded','success');
-}
-function clearForm(){
-  ['f-beds','f-baths','f-price','f-area','f-size','f-extra'].forEach(id=>{$(id).value=''});
-  $('f-city').value='Harare';selectedAmenities=new Set();renderAmenities();
-}
-
-/* ============== GENERATE ============== */
-function collectInput(){
-  return {
-    listing: $('f-listing').value,
-    type: $('f-type').value,
-    beds: $('f-beds').value.trim(),
-    baths: $('f-baths').value.trim(),
-    price: $('f-price').value.trim(),
-    area: $('f-area').value.trim(),
-    city: $('f-city').value.trim()||'Harare',
-    size: $('f-size').value.trim(),
-    amenities: [...selectedAmenities],
-    extra: $('f-extra').value.trim()
-  };
-}
-
-function inputToPrompt(i){
-  const parts = [];
-  parts.push(`Property type: ${i.type}`);
-  parts.push(`Listing type: ${i.listing}`);
-  if(i.beds) parts.push(`Bedrooms: ${i.beds}`);
-  if(i.baths) parts.push(`Bathrooms: ${i.baths}`);
-  if(i.price) parts.push(`Price: $${Number(i.price).toLocaleString()}${i.listing==='For Rent'?'/month':''}`);
-  parts.push(`Location: ${i.area?i.area+', ':''}${i.city}, Zimbabwe`);
-  if(i.size) parts.push(`Size: ${i.size}`);
-  if(i.amenities.length) parts.push(`Amenities: ${i.amenities.join(', ')}`);
-  if(i.extra) parts.push(`Additional details: ${i.extra}`);
-  return parts.join('\n');
-}
-
-async function generate(){
-  const input = collectInput();
-  if(!input.area){toast('Enter a suburb / area','error');return}
-  if(!input.price){toast('Enter a price','error');return}
-
-  if(!getKey()){openKeyModal();return}
-  if(!isPro() && getUsage() >= DAILY_LIMIT){
-    showLimitInOutput();return;
+/* ===== AUTH FLOW ===== */
+function signIn(){openModal('signin-modal')}
+async function doGoogleSignIn(){
+  try{
+    await auth.signInWithPopup(googleProvider);
+    closeModal('signin-modal');
+  }catch(e){
+    console.error(e);
+    toast('Sign-in failed: '+(e.message||'unknown error'),'error');
   }
+}
+async function signOut(){
+  await auth.signOut();
+  currentProfile = null;
+  goTo('landing');
+}
 
-  lastInput = input;
-  const btn = $('gen-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<div style="width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite"></div> Generating...';
-
-  $('tool-output').innerHTML = `
-    <div class="loading-box">
-      <div class="spinner"></div>
-      <p>Crafting your listing…</p>
-      <small>This usually takes 5–10 seconds</small>
-    </div>`;
-
-  try {
-    const userPrompt = inputToPrompt(input);
-    const payload = {
-      model: isPro()?MODEL_PRO:MODEL_FREE,
-      messages: [
-        {role:'system', content: SYSTEM_PROMPT},
-        {role:'user', content: userPrompt}
-      ],
-      temperature: 0.7,
-      max_tokens: 1200,
-      response_format: {type:'json_object'}
-    };
-    const resp = await fetch(GROQ_URL, {
-      method:'POST',
-      headers: {'Authorization':`Bearer ${getKey()}`,'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-    if(!resp.ok){
-      const err = await resp.json().catch(()=>({}));
-      throw new Error(err.error?.message || `HTTP ${resp.status}`);
+auth.onAuthStateChanged(async (user)=>{
+  currentUser = user;
+  hide('boot');
+  if (!user){
+    currentProfile = null;
+    goTo('landing');
+    return;
+  }
+  // Check if user profile exists
+  try{
+    const doc = await db.collection(C_USERS).doc(user.uid).get();
+    if (!doc.exists){
+      // New user - start onboarding
+      openOnboarding();
+    } else {
+      currentProfile = doc.data();
+      routeAfterLogin();
     }
-    const data = await resp.json();
-    const content = data.choices[0].message.content;
-    const parsed = JSON.parse(content);
-    lastResult = parsed;
-    bumpUsage();
-    renderOutput(parsed);
-    saveHistory(input, parsed);
-  } catch(e){
-    $('tool-output').innerHTML = `<div class="err-box"><b>Couldn't generate:</b> ${esc(e.message)}. Try again in a moment.</div>` + emptyStateHTML();
-    toast('Generation failed', 'error');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg> Generate Listing';
+  }catch(e){
+    console.error(e);
+    toast('Could not load profile','error');
+  }
+});
+
+/* ===== ONBOARDING ===== */
+function openOnboarding(){
+  $('ob-name').value = currentUser.displayName || '';
+  openModal('onboard-modal');
+}
+function pickRole(role){
+  onboardRole = role;
+  document.querySelectorAll('.role-pick-item').forEach(el=>{
+    el.classList.toggle('selected', el.dataset.role===role);
+  });
+  $('ob-consultant-fields').style.display = role==='consultant' ? 'block' : 'none';
+}
+async function completeOnboarding(){
+  if (!onboardRole){toast('Pick a role first','error');return}
+  const name = $('ob-name').value.trim();
+  const phone = $('ob-phone').value.trim();
+  if (!name){toast('Name is required','error');return}
+  if (!phone || phone.replace(/\D/g,'').length < 9){toast('Valid phone number required','error');return}
+
+  const profile = {
+    uid: currentUser.uid,
+    email: currentUser.email,
+    name,
+    phone,
+    role: onboardRole,
+    status: 'active', // auto-approved; admin can suspend
+    photoURL: currentUser.photoURL || null,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+  if (onboardRole === 'consultant'){
+    profile.agency = $('ob-agency').value.trim() || null;
+    profile.eaczNumber = $('ob-eacz').value.trim() || null;
+    profile.verified = !!profile.eaczNumber; // has EACZ = auto verified badge
+  }
+
+  try{
+    await db.collection(C_USERS).doc(currentUser.uid).set(profile);
+    currentProfile = profile;
+    closeModal('onboard-modal');
+    toast('Welcome to EstateFlow!','success');
+    routeAfterLogin();
+  }catch(e){
+    console.error(e);
+    toast('Could not save profile: '+e.message,'error');
   }
 }
 
-function renderOutput(r){
-  const featuresList = Array.isArray(r.features) ? r.features : [];
-  const featuresHTML = featuresList.map(f=>`<li>${esc(f)}</li>`).join('');
-  $('tool-output').innerHTML = `
-    <div class="out-result">
-      ${!isPro()?`<div style="font-size:.78rem;color:var(--muted);font-family:var(--mono);text-align:right">${getUsage()} / ${DAILY_LIMIT} used today</div>`:''}
+/* ===== ROUTING ===== */
+function routeAfterLogin(){
+  if (isAdmin(currentUser)) goTo('admin');
+  else if (currentProfile?.role === 'consultant') goTo('consultant');
+  else goTo('buyer');
+}
 
-      <div class="out-block">
-        <div class="out-head">
-          <div class="out-label"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg> Title</div>
-          <button class="copy-btn" onclick="copyBlock(this,'${btoa(unescape(encodeURIComponent(r.title||'')))}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+function goTo(view){
+  currentView = view;
+  ['landing','buyer','consultant','admin'].forEach(v=>hide('view-'+v));
+  show('view-'+view);
+  show('topnav');
+  renderNav();
+  if (view === 'consultant') renderConsultantView();
+}
+
+function goHome(){
+  if (!currentUser) goTo('landing');
+  else routeAfterLogin();
+}
+
+function renderNav(){
+  const actions = $('nav-actions');
+  const menu = $('main-menu');
+
+  if (!currentUser){
+    menu.innerHTML = '';
+    actions.innerHTML = `
+      <button class="btn btn-primary" onclick="signIn()">Sign in</button>
+    `;
+    return;
+  }
+
+  const role = currentProfile?.role;
+  const admin = isAdmin(currentUser);
+
+  if (admin){
+    menu.innerHTML = `
+      <a onclick="goTo('admin')">Admin</a>
+      <a onclick="goTo('buyer')">Browse</a>
+      <a onclick="goTo('consultant')">Consultant view</a>
+    `;
+  } else if (role === 'consultant'){
+    menu.innerHTML = `
+      <a onclick="goTo('consultant')">Dashboard</a>
+      <a onclick="goTo('buyer')">Browse</a>
+    `;
+  } else {
+    menu.innerHTML = `
+      <a onclick="goTo('buyer')">Browse</a>
+    `;
+  }
+
+  const photo = currentUser.photoURL
+    ? `<img src="${esc(currentUser.photoURL)}" onerror="this.parentElement.textContent='${esc((currentProfile?.name||currentUser.email||'?').charAt(0).toUpperCase())}'">`
+    : esc((currentProfile?.name || currentUser.email || '?').charAt(0).toUpperCase());
+  const displayName = currentProfile?.name || currentUser.displayName || currentUser.email;
+  const roleLabel = admin ? 'ADMIN' : (role === 'consultant' ? 'CONSULTANT' : 'BUYER');
+
+  actions.innerHTML = `
+    <div class="user-pill" onclick="this.classList.toggle('open')" onblur="this.classList.remove('open')" tabindex="0">
+      <div class="avatar">${photo}</div>
+      <div class="info">
+        <div class="nm">${esc(displayName)}</div>
+        <div class="rl">${roleLabel}</div>
+      </div>
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:14px;height:14px;color:var(--muted)"><path d="M6 9l6 6 6-6"/></svg>
+      <div class="user-menu">
+        <div class="user-menu-item" onclick="toast('Profile editor coming in Part 2','')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          My Profile
         </div>
-        <div class="out-body title-body">${esc(r.title||'')}</div>
-      </div>
-
-      <div class="out-block">
-        <div class="out-head">
-          <div class="out-label"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h12"/></svg> Description</div>
-          <button class="copy-btn" onclick="copyBlock(this,'${btoa(unescape(encodeURIComponent(r.description||'')))}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        ${role==='consultant'?`<div class="user-menu-item" onclick="goTo('consultant')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </div>`:''}
+        ${admin?`<div class="user-menu-item" onclick="goTo('admin')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33h0a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51h0a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v0a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Admin
+        </div>`:''}
+        <div class="user-menu-divider"></div>
+        <div class="user-menu-item danger" onclick="signOut()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Sign out
         </div>
-        <div class="out-body">${esc(r.description||'')}</div>
       </div>
+    </div>
+  `;
+}
 
-      <div class="out-block">
-        <div class="out-head">
-          <div class="out-label"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> Key Features</div>
-          <button class="copy-btn" onclick="copyBlock(this,'${btoa(unescape(encodeURIComponent(featuresList.map(f=>'• '+f).join('\\n'))))}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-        </div>
-        <div class="out-body"><ul>${featuresHTML}</ul></div>
+/* ===== CONSULTANT VIEW ===== */
+function renderConsultantView(){
+  const w = $('consultant-pending');
+  if (currentProfile?.status === 'pending'){
+    w.style.display = 'block';
+    w.innerHTML = `
+      <div class="pending-banner">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div><b>Account pending review.</b> Your consultant account is waiting for admin approval. You can fill in your profile while you wait.</div>
       </div>
-
-      <div class="out-block">
-        <div class="out-head">
-          <div class="out-label"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8.5 8.5l7 7M8.5 15.5l7-7"/><circle cx="12" cy="12" r="10"/></svg> Social Caption</div>
-          <button class="copy-btn" onclick="copyBlock(this,'${btoa(unescape(encodeURIComponent(r.social||'')))}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-        </div>
-        <div class="out-body">${esc(r.social||'')}</div>
+    `;
+  } else if (currentProfile?.status === 'suspended'){
+    w.style.display = 'block';
+    w.innerHTML = `
+      <div class="pending-banner" style="background:#fef2f2;border-color:#fecaca;color:#991b1b">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <div><b>Account suspended.</b> Contact support.</div>
       </div>
-
-      <div class="out-block">
-        <div class="out-head">
-          <div class="out-label"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg> Call-to-Action</div>
-          <button class="copy-btn" onclick="copyBlock(this,'${btoa(unescape(encodeURIComponent(r.cta||'')))}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-        </div>
-        <div class="out-body">${esc(r.cta||'')}</div>
-      </div>
-
-      <div class="out-footer">
-        <button class="btn-copy-all" onclick="copyAll()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy All</button>
-        <button class="btn-regen" onclick="generate()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg> Regenerate</button>
-      </div>
-    </div>`;
+    `;
+  } else {
+    w.style.display = 'none';
+  }
+  $('consultant-welcome').textContent = `Welcome ${currentProfile?.name?.split(' ')[0] || 'there'} — manage your listings and track inquiries.`;
 }
 
-function emptyStateHTML(){
-  return `<div class="out-placeholder">
-    <div class="pop"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg></div>
-    <h3>Your listing will appear here</h3>
-    <p>Fill in the details on the left and click <b>Generate Listing</b>.</p>
-  </div>`;
-}
-
-function showLimitInOutput(){
-  $('tool-output').innerHTML = `
-    <div class="limit-box">
-      <div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="10"/></svg></div>
-      <div>
-        <h4>Daily limit reached</h4>
-        <p>You've used all 5 free generations today. <a onclick="openUpgrade()">Upgrade to Pro</a> for unlimited listings, or come back tomorrow.</p>
-        <button class="btn btn-primary" onclick="openUpgrade()">Upgrade to Pro · $20/mo</button>
-      </div>
-    </div>` + emptyStateHTML();
-}
-
-/* ============== COPY ============== */
-function copyBlock(btn, b64){
-  const text = decodeURIComponent(escape(atob(b64)));
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.classList.add('copied');
-    btn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Copied';
-    setTimeout(()=>{btn.classList.remove('copied');btn.innerHTML='<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy'},1600);
-  });
-}
-function copyAll(){
-  if(!lastResult)return;
-  const r = lastResult;
-  const txt = `${r.title||''}\n\n${r.description||''}\n\nKEY FEATURES:\n${(r.features||[]).map(f=>'• '+f).join('\n')}\n\nSOCIAL:\n${r.social||''}\n\nCTA:\n${r.cta||''}`;
-  navigator.clipboard.writeText(txt).then(()=>toast('Full listing copied','success'));
-}
-
-/* ============== HISTORY ============== */
-function saveHistory(input, result){
-  const hist = JSON.parse(localStorage.getItem('ef_history')||'[]');
-  hist.unshift({at:Date.now(), input, result});
-  localStorage.setItem('ef_history', JSON.stringify(hist.slice(0,20)));
-  renderHistory();
-}
-function renderHistory(){
-  const hist = JSON.parse(localStorage.getItem('ef_history')||'[]');
-  if(!hist.length){$('history-section').style.display='none';return}
-  $('history-section').style.display='block';
-  $('hist-list').innerHTML = hist.map((h,i)=>`
-    <div class="hist-item" onclick="loadFromHistory(${i})">
-      <div class="hi-title">${esc(h.result.title||'Untitled')}</div>
-      <div class="hi-meta">
-        <span>${esc(h.input.area||'')}, ${esc(h.input.city||'')}</span>
-        <span>$${Number(h.input.price||0).toLocaleString()}</span>
-        <span>${esc(h.input.beds||'—')}BR</span>
-      </div>
-    </div>`).join('');
-}
-function loadFromHistory(i){
-  const hist = JSON.parse(localStorage.getItem('ef_history')||'[]');
-  const item = hist[i];if(!item)return;
-  lastResult = item.result;lastInput = item.input;
-  renderOutput(item.result);
-  scrollT('tool');
-}
-function clearHistory(){if(!confirm('Clear all history?'))return;localStorage.removeItem('ef_history');renderHistory();toast('History cleared','success')}
-
-/* ============== UPGRADE ============== */
-function openUpgrade(){$('upgrade-modal').classList.add('open')}
-function closeModal(id){$(id||'upgrade-modal').classList.remove('open')}
-function openKeyModal(){$('key-input').value=getKey();$('key-modal').classList.add('open');setTimeout(()=>$('key-input').focus(),100)}
-function saveKey(){
-  const k=$('key-input').value.trim();
-  if(!k.startsWith('gsk_')){toast('Key should start with gsk_','error');return}
-  setKey(k);closeModal('key-modal');toast('API key saved','success');
-  setTimeout(()=>generate(),300);
-}
-function upgradeWA(){
-  const msg = `Hello! I'd like to upgrade to EstateFlow AI Pro ($20/month). Please help me get started.`;
-  window.open(`https://wa.me/${UPGRADE_WA}?text=${encodeURIComponent(msg)}`,'_blank');
-}
-
-/* ============== INIT ============== */
+/* ===== INIT ===== */
 $('yr').textContent = new Date().getFullYear();
-renderAmenities();updateUsagePill();renderHistory();
+// Keep the user menu closable with outside click
+document.addEventListener('click', (e)=>{
+  if (!e.target.closest('.user-pill')){
+    document.querySelectorAll('.user-pill').forEach(el=>el.classList.remove('open'));
+  }
+});
 </script>
 </body>
 </html>
