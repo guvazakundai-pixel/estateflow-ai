@@ -150,6 +150,40 @@ img{max-width:100%;display:block}
 .role-pick-item h4{font-size:.92rem;font-weight:700;margin-bottom:2px}
 .role-pick-item p{font-size:.76rem;color:var(--muted);line-height:1.5}
 
+/* AI CHAT WIDGET */
+#chat-btn{position:fixed;bottom:24px;right:24px;z-index:80;width:58px;height:58px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 28px rgba(30,58,138,.4);transition:all .2s;border:0;display:none}
+#chat-btn.on{display:flex}
+#chat-btn:hover{transform:scale(1.08)}
+#chat-btn svg{width:26px;height:26px}
+#chat-btn .pulse{position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--teal);opacity:0;animation:chat-pulse 2s infinite}
+@keyframes chat-pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.3);opacity:0}}
+#chat-panel{position:fixed;bottom:24px;right:24px;z-index:90;width:380px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 48px);background:#fff;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--border)}
+#chat-panel.open{display:flex;animation:slideUp .25s cubic-bezier(.2,.8,.2,1)}
+.chat-head{padding:14px 18px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.chat-head h4{font-size:.95rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.chat-head h4 svg{width:16px;height:16px}
+.chat-head .sub{font-size:.72rem;opacity:.85;margin-top:1px}
+.chat-head .close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:0}
+.chat-head .close:hover{background:rgba(255,255,255,.35)}
+.chat-head .close svg{width:14px;height:14px}
+.chat-body{flex:1;overflow-y:auto;padding:16px;background:var(--bg-soft);display:flex;flex-direction:column;gap:10px}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:var(--radius-xl);font-size:.88rem;line-height:1.5}
+.chat-msg.user{align-self:flex-end;background:var(--primary);color:#fff;border-bottom-right-radius:4px}
+.chat-msg.ai{align-self:flex-start;background:#fff;color:var(--text);border:1px solid var(--border);border-bottom-left-radius:4px}
+.chat-msg.system{align-self:center;background:transparent;color:var(--muted);font-size:.78rem;font-style:italic;text-align:center}
+.chat-matches{align-self:stretch;display:flex;flex-direction:column;gap:6px}
+.chat-match{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:10px 12px;cursor:pointer;transition:all .15s;display:flex;gap:10px;align-items:center}
+.chat-match:hover{border-color:var(--primary);transform:translateX(2px)}
+.chat-match img{width:48px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--bg-soft)}
+.chat-match .mn{font-weight:600;font-size:.85rem;line-height:1.2;margin-bottom:2px}
+.chat-match .mm{font-size:.74rem;color:var(--muted);font-family:var(--mono)}
+.chat-input{padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:#fff}
+.chat-input input{flex:1;background:var(--bg-soft);border:1px solid var(--border);border-radius:100px;padding:10px 14px;font-size:.88rem;outline:none}
+.chat-input input:focus{border-color:var(--primary);background:#fff}
+.chat-input button{width:38px;height:38px;border-radius:50%;background:var(--grad);color:#fff;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.chat-input button:disabled{opacity:.5}
+.chat-input button svg{width:15px;height:15px}
+
 #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:#0f172a;color:#fff;padding:12px 20px;border-radius:100px;font-size:.86rem;font-weight:500;z-index:9999;opacity:0;transition:all .22s;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.success{background:var(--teal)}
@@ -492,6 +526,10 @@ img{max-width:100%;display:block}
         <option value="price-asc">Price ↑</option>
         <option value="price-desc">Price ↓</option>
       </select>
+      <button id="fav-toggle" class="chip" onclick="toggleFavFilter()" title="Show only my favorites">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:13px;height:13px;vertical-align:-1px"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Favorites
+      </button>
     </div>
     <div class="listings-grid" id="listings-grid">
       <div class="loader" style="grid-column:1/-1"><div class="spinner"></div><p>Loading listings...</p></div>
@@ -635,7 +673,16 @@ img{max-width:100%;display:block}
         </div>
       </div>
       <div class="field"><label>Size (plot / floor)</label><input id="lf-size" placeholder="e.g. 2000m² stand, 250m² under roof"></div>
-      <div class="field"><label>Description</label><textarea id="lf-desc" placeholder="Describe the property — features, location advantages..."></textarea></div>
+      <div class="field">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <label style="margin:0">Description</label>
+          <button type="button" id="lf-ai-btn" onclick="aiGenerate()" style="padding:5px 12px;border-radius:100px;background:linear-gradient(135deg,#1E3A8A,#14B8A6);color:#fff;font-size:.74rem;font-weight:700;display:inline-flex;align-items:center;gap:5px;letter-spacing:.02em">
+            <svg fill="currentColor" viewBox="0 0 24 24" style="width:12px;height:12px"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>
+            Generate with AI
+          </button>
+        </div>
+        <textarea id="lf-desc" placeholder="Describe the property — or fill in the fields above and click Generate with AI."></textarea>
+      </div>
 
       <div class="section-divider">Amenities</div>
       <div class="amenity-grid" id="lf-amenities"></div>
@@ -673,6 +720,26 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- AI chat -->
+<button id="chat-btn" onclick="toggleChat()" title="Ask AI to find your home">
+  <span class="pulse"></span>
+  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+</button>
+<div id="chat-panel">
+  <div class="chat-head">
+    <div>
+      <h4><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg> AI Property Finder</h4>
+      <div class="sub">Tell me what you're looking for</div>
+    </div>
+    <button class="close" onclick="toggleChat()"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <form class="chat-input" onsubmit="event.preventDefault();sendChat()">
+    <input id="chat-input" placeholder="e.g. 3-bed under $150k in Borrowdale" autocomplete="off">
+    <button type="submit" id="chat-send"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+  </form>
+</div>
+
 <div id="toast"></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -688,7 +755,9 @@ const firebaseConfig = {
   appId:"1:859283011492:web:de1fab803c9e67b4db3331"
 };
 const ADMIN_EMAILS = ["guvazab@gmail.com","guvazakundai@gmail.com"];
-const C_USERS = "ef_users", C_LISTINGS = "ef_listings", C_LEADS = "ef_leads";
+const C_USERS = "ef_users", C_LISTINGS = "ef_listings", C_LEADS = "ef_leads", C_SETTINGS = "ef_settings";
+const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
+const GROQ_MODEL = "llama-3.3-70b-versatile";
 const AMENITIES = ["Swimming pool","Garden","Garage","Staff quarters","Borehole","ZESA backup","Solar power","Durawall","Electric fence","Security guard","Air-conditioning","Modern kitchen","Fireplace","Balcony","En-suite","Study","Dining room","Open plan","Furnished","Pet-friendly","Close to schools","Close to shops"];
 
 firebase.initializeApp(firebaseConfig);
@@ -699,7 +768,12 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 let currentUser=null, currentProfile=null, onboardRole=null, currentView='landing';
 let listings=[], editingListing=null, editingImages=[], editingAmenities=new Set();
 let detailListing=null, detailImgIdx=0;
-let listingsUnsub=null;
+let listingsUnsub=null, leadsUnsub=null, allUsersUnsub=null;
+let globalSettings={groqKey:''};
+let myLeads=[], allUsers=[];
+let consultantTab='listings', adminTab='overview';
+let buyerShowFavorites=false;
+let chatMessages=[];
 
 /* ===== HELPERS ===== */
 function $(id){return document.getElementById(id)}
@@ -746,7 +820,7 @@ auth.onAuthStateChanged(async (user)=>{
   try{
     const doc=await db.collection(C_USERS).doc(user.uid).get();
     if(!doc.exists){openOnboarding()}
-    else{currentProfile=doc.data();routeAfterLogin();subscribeListings()}
+    else{currentProfile=doc.data();await loadGlobalSettings();routeAfterLogin();subscribeListings();subscribeLeads();subscribeAllUsers()}
   }catch(e){console.error(e);toast('Could not load profile','error')}
 });
 
@@ -781,7 +855,7 @@ async function completeOnboarding(){
     await db.collection(C_USERS).doc(currentUser.uid).set(profile);
     currentProfile=profile;
     closeModal('onboard-modal');toast('Welcome to EstateFlow!','success');
-    routeAfterLogin();subscribeListings();
+    await loadGlobalSettings();routeAfterLogin();subscribeListings();subscribeLeads();subscribeAllUsers();
   }catch(e){console.error(e);toast('Could not save: '+e.message,'error')}
 }
 
@@ -795,6 +869,9 @@ function goTo(view){
   currentView=view;
   ['landing','buyer','consultant','admin'].forEach(v=>hide('view-'+v));
   show('view-'+view);show('topnav');renderNav();
+  // Show AI chat button only on buyer view
+  const cb=$('chat-btn');if(cb)cb.classList.toggle('on',view==='buyer');
+  if(view!=='buyer'){const cp=$('chat-panel');if(cp)cp.classList.remove('open')}
   if(view==='buyer')renderListings();
   else if(view==='consultant')renderConsultantView();
   else if(view==='admin')renderAdminView();
@@ -831,6 +908,60 @@ function renderNav(){
   `;
 }
 
+/* ===== GLOBAL SETTINGS (Groq key) ===== */
+async function loadGlobalSettings(){
+  try{
+    const doc = await db.collection(C_SETTINGS).doc('global').get();
+    if(doc.exists) globalSettings = {...globalSettings, ...doc.data()};
+  }catch(e){console.error('settings load',e)}
+}
+async function saveGlobalSettings(){
+  try{
+    await db.collection(C_SETTINGS).doc('global').set(globalSettings,{merge:true});
+    toast('Settings saved','success');
+  }catch(e){toast('Save failed','error')}
+}
+
+/* ===== AI (Groq) ===== */
+async function callGroq(systemPrompt, userPrompt, jsonMode=false){
+  if(!globalSettings.groqKey){throw new Error('AI not configured. Admin must add Groq API key in settings.')}
+  const body={
+    model:GROQ_MODEL,
+    messages:[{role:'system',content:systemPrompt},{role:'user',content:userPrompt}],
+    temperature:0.5,max_tokens:1400
+  };
+  if(jsonMode)body.response_format={type:'json_object'};
+  const r=await fetch(GROQ_URL,{method:'POST',headers:{'Authorization':`Bearer ${globalSettings.groqKey}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${r.status}`)}
+  const d=await r.json();
+  return d.choices[0].message.content;
+}
+
+/* ===== LEADS SUBSCRIPTION ===== */
+function subscribeLeads(){
+  if(leadsUnsub){leadsUnsub();leadsUnsub=null}
+  if(!currentUser)return;
+  const q = isAdmin(currentUser)
+    ? db.collection(C_LEADS)
+    : db.collection(C_LEADS).where('consultantId','==',currentUser.uid);
+  leadsUnsub = q.onSnapshot(snap=>{
+    myLeads = snap.docs.map(d=>({id:d.id,...d.data()}))
+      .sort((a,b)=>(b.createdAt?.toDate?.()?.getTime()||0)-(a.createdAt?.toDate?.()?.getTime()||0));
+    if(currentView==='consultant' && consultantTab==='leads')renderConsultantView();
+    if(currentView==='admin')renderAdminView();
+  }, err=>console.error('leads sync',err));
+}
+
+/* ===== ALL USERS SUBSCRIPTION (admin only) ===== */
+function subscribeAllUsers(){
+  if(allUsersUnsub){allUsersUnsub();allUsersUnsub=null}
+  if(!isAdmin(currentUser))return;
+  allUsersUnsub = db.collection(C_USERS).onSnapshot(snap=>{
+    allUsers = snap.docs.map(d=>({id:d.id,...d.data()}));
+    if(currentView==='admin')renderAdminView();
+  }, err=>console.error('users sync',err));
+}
+
 /* ===== LISTINGS SUBSCRIPTION ===== */
 function subscribeListings(){
   if(listingsUnsub)listingsUnsub();
@@ -856,6 +987,7 @@ function renderListings(){
   const lt=$('fltr-listing')?.value||'';
   const bd=parseInt($('fltr-beds')?.value||'0');
   const srt=$('fltr-sort')?.value||'new';
+  if(buyerShowFavorites){const favs=new Set(currentProfile?.favorites||[]);list=list.filter(l=>favs.has(l.id))}
   if(q)list=list.filter(l=>(l.title+' '+l.suburb+' '+l.city+' '+(l.description||'')).toLowerCase().includes(q));
   if(tp)list=list.filter(l=>l.propertyType===tp);
   if(lt)list=list.filter(l=>l.listingType===lt);
@@ -909,6 +1041,13 @@ function listingCard(l){
 function placeholderImg(title){
   const t=encodeURIComponent((title||'Property').slice(0,20));
   return `data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22450%22 viewBox=%220 0 600 450%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%22 stop-color=%22%231E3A8A%22/><stop offset=%221%22 stop-color=%22%2314B8A6%22/></linearGradient></defs><rect width=%22600%22 height=%22450%22 fill=%22url(%23g)%22 opacity=%22.9%22/><path d=%22M250 200 L300 160 L350 200 L350 270 L250 270 Z%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%223%22 opacity=%22.7%22/><text x=%22300%22 y=%22340%22 font-family=%22Inter,sans-serif%22 font-size=%2218%22 fill=%22%23fff%22 opacity=%22.85%22 text-anchor=%22middle%22>${t}</text></svg>`;
+}
+
+function toggleFavFilter(){
+  if(!currentUser){signIn();return}
+  buyerShowFavorites=!buyerShowFavorites;
+  const btn=$('fav-toggle');if(btn)btn.classList.toggle('active',buyerShowFavorites);
+  renderListings();
 }
 
 /* ===== AFFORDABILITY ===== */
@@ -1157,6 +1296,7 @@ async function shareListing(id){
 }
 
 /* ===== CONSULTANT DASHBOARD ===== */
+function setConsultantTab(tab){consultantTab=tab;renderConsultantView()}
 function renderConsultantView(){
   // Pending/suspended banner
   const w=$('consultant-pending');
@@ -1180,11 +1320,22 @@ function renderConsultantView(){
   `;
 
   const wrap=$('consultant-listings');
-  if(!mine.length){
-    wrap.innerHTML=`<div class="empty-state"><div class="big">📋</div><h3>No listings yet</h3><p>Publish your first property to start reaching buyers.</p><button class="btn btn-primary" onclick="openListingForm()"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Create Your First Listing</button></div>`;
+  const myLeadsCount = myLeads.filter(l=>l.status==='new').length;
+  const tabs = `<div style="display:flex;gap:8px;margin-bottom:18px;border-bottom:1px solid var(--border)">
+    <button class="chip ${consultantTab==='listings'?'active':''}" onclick="setConsultantTab('listings')" style="border-radius:0;border:0;border-bottom:2px solid ${consultantTab==='listings'?'var(--primary)':'transparent'};background:none;color:${consultantTab==='listings'?'var(--primary)':'var(--text-2)'};padding:10px 14px;font-weight:600">My Listings <span style="opacity:.6">${mine.length}</span></button>
+    <button class="chip ${consultantTab==='leads'?'active':''}" onclick="setConsultantTab('leads')" style="border-radius:0;border:0;border-bottom:2px solid ${consultantTab==='leads'?'var(--primary)':'transparent'};background:none;color:${consultantTab==='leads'?'var(--primary)':'var(--text-2)'};padding:10px 14px;font-weight:600">Inquiries ${myLeadsCount?`<span style="background:var(--red);color:#fff;padding:1px 7px;border-radius:100px;font-size:.68rem;margin-left:4px">${myLeadsCount}</span>`:`<span style="opacity:.6">${myLeads.length}</span>`}</button>
+  </div>`;
+
+  if(consultantTab==='leads'){
+    wrap.innerHTML=tabs+renderLeadsList(myLeads);
     return;
   }
-  wrap.innerHTML=`<div class="listings-table">
+
+  if(!mine.length){
+    wrap.innerHTML=tabs+`<div class="empty-state"><div class="big">📋</div><h3>No listings yet</h3><p>Publish your first property to start reaching buyers.</p><button class="btn btn-primary" onclick="openListingForm()"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Create Your First Listing</button></div>`;
+    return;
+  }
+  wrap.innerHTML=tabs+`<div class="listings-table">
     <div class="lt-head">
       <div></div><div>Property</div><div>Location</div><div>Type</div><div>Views</div><div>Status</div><div>Actions</div>
     </div>
@@ -1204,6 +1355,38 @@ function renderConsultantView(){
       </div>`;
     }).join('')}
   </div>`;
+}
+
+/* ===== LEADS UI ===== */
+function renderLeadsList(leads){
+  if(!leads.length){
+    return `<div class="empty-state"><div class="big">💬</div><h3>No inquiries yet</h3><p>When buyers contact you about a property, their details appear here.</p></div>`;
+  }
+  return `<div style="display:flex;flex-direction:column;gap:10px">
+    ${leads.map(l=>`
+      <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:16px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:220px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <strong style="font-size:.95rem">${esc(l.buyerName||'Anonymous')}</strong>
+            ${l.status==='new'?'<span class="lt-status available" style="font-size:.62rem">NEW</span>':l.status==='contacted'?'<span class="lt-status under_offer" style="font-size:.62rem">CONTACTED</span>':'<span class="lt-status sold" style="font-size:.62rem">CLOSED</span>'}
+          </div>
+          <div style="font-size:.82rem;color:var(--muted)">Interested in: <strong style="color:var(--text-2)">${esc(l.listingTitle||'')}</strong></div>
+          <div style="font-size:.78rem;color:var(--muted);margin-top:4px;font-family:var(--mono)">${esc(l.buyerPhone||'')} · ${esc(l.buyerEmail||'')} · ${timeAgo(l.createdAt)}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <a class="btn btn-sm btn-wa" href="https://wa.me/${esc((l.buyerPhone||'').replace(/\\D/g,''))}?text=${encodeURIComponent('Hi '+(l.buyerName||'')+', following up on your interest in '+(l.listingTitle||'')+'.')}" target="_blank" onclick="markLead('${l.id}','contacted')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          ${l.status!=='closed'?`<button class="btn btn-sm btn-outline" onclick="markLead('${l.id}','closed')">Close</button>`:''}
+        </div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+async function markLead(id,status){
+  try{await db.collection(C_LEADS).doc(id).update({status})}
+  catch(e){console.error(e)}
 }
 
 /* ===== LISTING FORM ===== */
@@ -1311,6 +1494,60 @@ function compressImage(file,maxDim=1400,q=.82){
   });
 }
 
+async function aiGenerate(){
+  const btn=$('lf-ai-btn');
+  const originalHTML=btn.innerHTML;
+  btn.disabled=true;
+  btn.innerHTML='<div class="spinner small white"></div> Generating...';
+  try{
+    const title=$('lf-title-in').value.trim();
+    const listingType=$('lf-listing').value;
+    const type=$('lf-type').value;
+    const price=$('lf-price').value;
+    const beds=$('lf-beds').value;
+    const baths=$('lf-baths').value;
+    const suburb=$('lf-suburb').value.trim();
+    const city=$('lf-city').value.trim();
+    const size=$('lf-size').value.trim();
+    const amenities=[...editingAmenities];
+    if(!price||!suburb){toast('Fill price and suburb first','error');return}
+
+    const parts=[
+      `Property type: ${type}`,`Listing type: ${listingType==='sale'?'For Sale':'For Rent'}`,
+      `Location: ${suburb}, ${city||'Harare'}, Zimbabwe`,
+      `Price: $${Number(price).toLocaleString()}${listingType==='rent'?'/month':''}`
+    ];
+    if(beds)parts.push(`Bedrooms: ${beds}`);
+    if(baths)parts.push(`Bathrooms: ${baths}`);
+    if(size)parts.push(`Size: ${size}`);
+    if(amenities.length)parts.push(`Amenities: ${amenities.join(', ')}`);
+    if(title&&title.length>3)parts.push(`Rough title idea: ${title}`);
+
+    const system = `You are a professional Zimbabwean real estate copywriter. Write high-converting listings that are:
+- Persuasive but honest (no made-up facts)
+- Focused on benefits (lifestyle, location, value)
+- SEO-aware (include suburb name, property type, price signals)
+- 2-3 short paragraphs for description
+- Zimbabwe-aware (mention borehole, ZESA, solar, security where relevant)
+
+Return ONLY JSON in this exact shape:
+{
+  "title": "compelling listing title (max 70 chars)",
+  "description": "full multi-paragraph description"
+}`;
+    const userPrompt = parts.join('\n');
+    const content = await callGroq(system, userPrompt, true);
+    const parsed = JSON.parse(content);
+    if(parsed.title)$('lf-title-in').value=parsed.title;
+    if(parsed.description)$('lf-desc').value=parsed.description;
+    toast('AI wrote your listing ✨','success');
+  }catch(e){
+    toast('AI error: '+e.message,'error');
+  }finally{
+    btn.disabled=false;btn.innerHTML=originalHTML;
+  }
+}
+
 async function saveListing(){
   const title=$('lf-title-in').value.trim();
   if(!title){toast('Title is required','error');return}
@@ -1376,16 +1613,186 @@ async function deleteCurrentListing(){
 }
 
 /* ===== ADMIN VIEW ===== */
+function setAdminTab(tab){adminTab=tab;renderAdminView()}
 function renderAdminView(){
   const total=listings.length;
   const active=listings.filter(l=>l.status==='available').length;
   const sold=listings.filter(l=>l.status==='sold'||l.status==='rented').length;
+  const newLeads=myLeads.filter(l=>l.status==='new').length;
+  const consultants=allUsers.filter(u=>u.role==='consultant').length;
+  const buyers=allUsers.filter(u=>u.role==='buyer').length;
+
   $('admin-stats').innerHTML=`
     <div class="stat-box"><div class="n">${total}</div><div class="l">Total Listings</div></div>
     <div class="stat-box"><div class="n">${active}</div><div class="l">Available</div></div>
     <div class="stat-box"><div class="n">${sold}</div><div class="l">Sold / Rented</div></div>
-    <div class="stat-box"><div class="n">—</div><div class="l">Users (Part 3)</div></div>
+    <div class="stat-box"><div class="n">${consultants}</div><div class="l">Consultants</div></div>
+    <div class="stat-box"><div class="n">${buyers}</div><div class="l">Buyers</div></div>
+    <div class="stat-box"><div class="n" style="color:var(--red)">${newLeads}</div><div class="l">New Inquiries</div></div>
   `;
+
+  const tabs = `<div style="display:flex;gap:4px;margin-bottom:18px;border-bottom:1px solid var(--border);flex-wrap:wrap">
+    ${['overview','users','leads','settings'].map(t=>`
+      <button onclick="setAdminTab('${t}')" style="border-radius:0;border:0;border-bottom:2px solid ${adminTab===t?'var(--primary)':'transparent'};background:none;color:${adminTab===t?'var(--primary)':'var(--text-2)'};padding:10px 14px;font-weight:600;text-transform:capitalize;cursor:pointer">${t}</button>
+    `).join('')}
+  </div>`;
+
+  const wrap = document.getElementById('view-admin').querySelector('.dash-wrap');
+  let existingEmpty = wrap.querySelector('.admin-tab-content');
+  if(existingEmpty) existingEmpty.remove();
+  const existingEmptyState = wrap.querySelector('.empty-state');
+  if(existingEmptyState) existingEmptyState.remove();
+
+  const container = document.createElement('div');
+  container.className = 'admin-tab-content';
+
+  if(adminTab === 'users'){
+    container.innerHTML = tabs + renderUsersAdmin();
+  } else if(adminTab === 'leads'){
+    container.innerHTML = tabs + renderLeadsList(myLeads);
+  } else if(adminTab === 'settings'){
+    container.innerHTML = tabs + renderAdminSettings();
+  } else {
+    container.innerHTML = tabs + `<div class="empty-state"><div class="big">🎛️</div><h3>Everything's running smoothly</h3><p>Use the tabs above to manage users, review inquiries, or configure platform settings.</p></div>`;
+  }
+
+  wrap.appendChild(container);
+}
+
+function renderUsersAdmin(){
+  if(!allUsers.length)return `<div class="empty-state"><div class="big">👥</div><h3>No users yet</h3></div>`;
+  const sorted = [...allUsers].sort((a,b)=>(b.createdAt?.toDate?.()?.getTime()||0)-(a.createdAt?.toDate?.()?.getTime()||0));
+  return `<div style="display:flex;flex-direction:column;gap:8px">
+    ${sorted.map(u=>{
+      const photo = u.photoURL ? `<img src="${esc(u.photoURL)}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">` : esc((u.name||'?').charAt(0).toUpperCase());
+      const badge = u.status==='suspended'?`<span class="lt-status sold" style="font-size:.66rem">SUSPENDED</span>`:u.status==='pending'?`<span class="lt-status under_offer" style="font-size:.66rem">PENDING</span>`:`<span class="lt-status available" style="font-size:.66rem">ACTIVE</span>`;
+      const verified = u.verified?` ✓`:'';
+      return `<div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;overflow:hidden;flex-shrink:0">${photo}</div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-weight:600;font-size:.92rem">${esc(u.name||'')}${verified}</div>
+          <div style="font-size:.78rem;color:var(--muted);font-family:var(--mono)">${esc(u.email||'')} · ${esc(u.phone||'—')}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="lt-status ${u.role==='consultant'?'under_offer':'available'}" style="font-size:.66rem;text-transform:uppercase">${esc(u.role||'buyer')}</span>
+          ${badge}
+          ${u.status!=='suspended'?`<button class="btn btn-sm btn-danger" onclick="suspendUser('${u.id}')">Suspend</button>`:`<button class="btn btn-sm btn-success" onclick="activateUser('${u.id}')">Activate</button>`}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function renderAdminSettings(){
+  return `
+    <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px">
+      <h3 style="margin-bottom:16px;font-size:1.05rem">✨ AI Configuration (Groq)</h3>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:14px">Groq powers the listing generator and buyer chat. Get a free API key at <a href="https://console.groq.com/keys" target="_blank" style="color:var(--primary);font-weight:600">console.groq.com/keys</a> — takes 30 seconds, no credit card.</p>
+      <div class="field">
+        <label>Groq API Key</label>
+        <input type="password" id="admin-groq" value="${esc(globalSettings.groqKey||'')}" placeholder="gsk_..." style="font-family:var(--mono);font-size:.85rem">
+        <div class="field-hint">Stored in Firestore, used by all consultants and buyers on the platform.</div>
+      </div>
+      <button class="btn btn-primary" onclick="saveGroqKey()">Save AI Config</button>
+    </div>
+  `;
+}
+async function saveGroqKey(){
+  const k = $('admin-groq').value.trim();
+  globalSettings.groqKey = k;
+  await saveGlobalSettings();
+}
+async function suspendUser(uid){
+  if(!confirm('Suspend this user? Their listings will stay up but they can\\'t post new ones.'))return;
+  try{await db.collection(C_USERS).doc(uid).update({status:'suspended'});toast('User suspended','success')}
+  catch(e){toast('Failed','error')}
+}
+async function activateUser(uid){
+  try{await db.collection(C_USERS).doc(uid).update({status:'active'});toast('User activated','success')}
+  catch(e){toast('Failed','error')}
+}
+
+/* ===== AI CHAT SEARCH ===== */
+function toggleChat(){
+  const p=$('chat-panel');p.classList.toggle('open');
+  if(p.classList.contains('open')){
+    if(!chatMessages.length){
+      chatMessages.push({role:'assistant',content:`Hi! I can help you find the right property. Try asking me things like:\n\n• "3-bed house under $150k in Borrowdale"\n• "anywhere with a borehole and pool"\n• "cheapest apartment for rent in Harare"`});
+      renderChatMessages();
+    }
+    setTimeout(()=>$('chat-input')?.focus(),100);
+  }
+}
+
+function renderChatMessages(){
+  const body=$('chat-body');
+  body.innerHTML = chatMessages.map(m=>{
+    if(m.matches){
+      return `<div class="chat-msg ai">${esc(m.content)}</div>
+        <div class="chat-matches">
+          ${m.matches.map(l=>`<div class="chat-match" onclick="openListingDetail('${l.id}');toggleChat()">
+            <img src="${esc((l.images||[])[0]||placeholderImg(l.title))}" onerror="this.src='${placeholderImg(l.title)}'">
+            <div style="flex:1"><div class="mn">${esc(l.title)}</div><div class="mm">${money(l.price)}${l.listingType==='rent'?'/mo':''} · ${esc(l.suburb)} · ${esc(l.beds||'?')}bed</div></div>
+          </div>`).join('')}
+        </div>`;
+    }
+    return `<div class="chat-msg ${m.role==='user'?'user':'ai'}">${esc(m.content)}</div>`;
+  }).join('');
+  body.scrollTop = body.scrollHeight;
+}
+
+async function sendChat(){
+  const input=$('chat-input');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  chatMessages.push({role:'user',content:text});
+  renderChatMessages();
+  const btn=$('chat-send');btn.disabled=true;
+  chatMessages.push({role:'assistant',content:'Searching...',thinking:true});
+  renderChatMessages();
+
+  try{
+    // Build a compact listings summary for the AI
+    const active = listings.filter(l=>l.status==='available'||l.status==='under_offer');
+    const summary = active.slice(0,50).map(l=>({
+      id: l.id,
+      title: l.title,
+      type: l.propertyType,
+      sale_or_rent: l.listingType,
+      price: l.price,
+      beds: l.beds||null, baths: l.baths||null,
+      suburb: l.suburb, city: l.city,
+      amenities: l.amenities||[],
+      status: l.status
+    }));
+
+    const system = `You are a helpful real estate AI for EstateFlow Zimbabwe. You help buyers find properties from a live catalog. Be conversational, friendly, and concise.
+
+When the user describes what they want, return JSON with:
+{
+  "reply": "a short friendly reply explaining what you found (1-2 sentences, no list)",
+  "match_ids": ["id1", "id2", ...]  // up to 6 best matching listing IDs from the catalog
+}
+
+If no listings match, reply with an empty match_ids array and suggest how they could broaden their search. If the user asks a non-search question, reply naturally with no matches.`;
+
+    const userPrompt = `Catalog (JSON):\n${JSON.stringify(summary)}\n\nUser: "${text}"`;
+    const raw = await callGroq(system, userPrompt, true);
+    const parsed = JSON.parse(raw);
+
+    // Remove "Searching..." placeholder
+    chatMessages = chatMessages.filter(m=>!m.thinking);
+    const matched = (parsed.match_ids||[]).map(id=>active.find(x=>x.id===id)).filter(Boolean);
+    chatMessages.push({role:'assistant',content:parsed.reply||'Here are some matches.',matches:matched.length?matched:null});
+    renderChatMessages();
+  }catch(e){
+    chatMessages=chatMessages.filter(m=>!m.thinking);
+    chatMessages.push({role:'assistant',content:`Sorry, I couldn't search right now: ${e.message}`});
+    renderChatMessages();
+  }finally{
+    btn.disabled=false;
+  }
 }
 
 /* ===== INIT ===== */
