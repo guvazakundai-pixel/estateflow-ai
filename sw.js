@@ -1,15 +1,20 @@
-const CACHE = 'estateflow-v1';
+const CACHE = 'estateflow-v2';
+const BASE = new URL('./', self.registration.scope).pathname;
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/generator.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  BASE,
+  BASE + 'index.html',
+  BASE + 'generator.html',
+  BASE + 'manifest.json',
+  BASE + 'icon-192.png',
+  BASE + 'icon-512.png'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => Promise.all(ASSETS.map(a => c.add(a).catch(() => {}))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
@@ -33,6 +38,6 @@ self.addEventListener('fetch', e => {
         caches.open(CACHE).then(c => c.put(req, copy)).catch(() => {});
         return res;
       })
-      .catch(() => caches.match(req).then(r => r || caches.match('/index.html')))
+      .catch(() => caches.match(req).then(r => r || caches.match(BASE + 'index.html')))
   );
 });
